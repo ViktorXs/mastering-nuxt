@@ -1,12 +1,15 @@
 <template>
     <div>
-        <img :src="home.images[0]" style="width:200px"><br>
-        <h3>{{ home.title }}</h3>
-        <p>{{ home.location.address }}<br>
-        {{ home.location.city }}<br>
-        {{ home.location.state }}, {{ home.location.country }}</p><br>
-        <p>Guests: {{ home.guests }}</p><br>
-        <p>{{ home.pricePerNight }} $ per night</p>
+        <h2>{{ home.title }}</h2>
+        <div style="display:flex">
+            <img v-for="image in home.images" :key="image" :src="image" style="padding:5px" widht="200px" height="150" alt="Imagine a beautiful home.">
+        </div>
+        <p>$<b>{{ home.pricePerNight }}</b> / night</p>
+        <p>{{ home.location.address }}, {{ home.location.city }}<br>
+        {{ home.location.state }}, {{ home.location.country }}</p>
+        <p>Review Score: {{ home.reviewValue }}</p>
+        <p>Guests: {{ home.guests }}</p>
+        <p>{{ home.bedrooms }} bedrooms, {{ home.beds }} beds and {{ home.bathrooms }} bathrooms.</p>
     </div>
 </template>
 
@@ -25,7 +28,8 @@ export default {
         }
     },
     created(){
-        const home = homes.find((home) => home.objectID === this.$route.params.id); this.home = home
+        const home = homes.find((home) => home.objectID === this.$route.params.id)
+        this.home = home
 
     }
 }
