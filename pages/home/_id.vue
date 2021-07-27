@@ -8,7 +8,7 @@
 /* import homes from "~/data/homes" */ 
 
 export default {
-    created(){
+    created(){  /* <- Lifecycle Hook */
         console.log(this.$route)
     }
 }
