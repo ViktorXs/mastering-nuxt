@@ -1,7 +1,6 @@
 <template>
-  <div style="margin:20px">
-    <h1>Some nice homes</h1>
-    <div v-for="home in homes" :key="home.objectID" style="float:left">
+  <div>
+    <div v-for="home in homes" :key="home.objectID" style="padding:10px; float:left">
       <home-card :home="home" />
     </div>
   </div>
