@@ -49,9 +49,8 @@
         "lat": 43.758773,
         "lng": -79.391785
       }
-  },
-  
-  {   "objectID":"b",     
+},
+{   "objectID":"b",     
     "type": "CABIN",
     "title": "Cozy Cabin in the Woods",    
     "description":"Need to get away?  Then this is the cabin for you!  Nestled in a large forest right inside Toronto, this spacious rustic abode offers amazing views of wildlife and nature through over 20 windows.\\nIt's a great place for hiking, mountain biking, and bird watching.  In the winter, warm up in front of the wood burning fireplace with some hot chocolate from the nearby market.\\nIt's the perfect spot to relax.  You can shop the local markets, take a dip in the hot tub or even wrestle a bear out back.  Whatever your pleasure, you're sure to find peace and quiet in the hills of Toronto",
@@ -101,9 +100,8 @@
         "lat": 43.758773,
         "lng": -79.391785
       }
-  },
-  
-  {   "objectID":"c",     
+},
+{   "objectID":"c",     
     "type": "CABIN",
     "title": "Cozy Cabin in the Woods",    
     "description":"Need to get away?  Then this is the cabin for you!  Nestled in a large forest right inside Toronto, this spacious rustic abode offers amazing views of wildlife and nature through over 20 windows.\\nIt's a great place for hiking, mountain biking, and bird watching.  In the winter, warm up in front of the wood burning fireplace with some hot chocolate from the nearby market.\\nIt's the perfect spot to relax.  You can shop the local markets, take a dip in the hot tub or even wrestle a bear out back.  Whatever your pleasure, you're sure to find peace and quiet in the hills of Toronto",
@@ -153,9 +151,8 @@
         "lat": 43.758773,
         "lng": -79.391785
       }
-  },
-  
-  {   "objectID":"d", 
+},
+{   "objectID":"d", 
     "type": "CABIN",
     "title": "Cozy Cabin in the Woods",    
     "description":"Need to get away?  Then this is the cabin for you!  Nestled in a large forest right inside Toronto, this spacious rustic abode offers amazing views of wildlife and nature through over 20 windows.\\nIt's a great place for hiking, mountain biking, and bird watching.  In the winter, warm up in front of the wood burning fireplace with some hot chocolate from the nearby market.\\nIt's the perfect spot to relax.  You can shop the local markets, take a dip in the hot tub or even wrestle a bear out back.  Whatever your pleasure, you're sure to find peace and quiet in the hills of Toronto",
@@ -205,6 +202,6 @@
         "lat": 43.758773,
         "lng": -79.391785
       }
-  }
-  
-  ]
+}
+
+]

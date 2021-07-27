@@ -7,17 +7,23 @@
 </template>
 
 <script>
-  import homes from "~/data/homes"
-  /* import HomeCard from "~/components/HomeCard" */ 
+import homes from "~/data/homes"
 
-  export default {
-  /*  components: {
-        HomeCard,
-    }, */
+export default {
     data(){
-      return {
-        homes: homes.slice(0,3)
-      }
+        return {
+            homes: homes.slice(0,3)
+        }
+    },
+    head(){
+        return {
+        title: "Homepage",
+        meta:[{
+            name: "description",
+            content: "This is my Homepage!",
+            hid: "description"
+        }]
+        }
     }
-  }
+}
 </script>
