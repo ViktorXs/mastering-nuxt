@@ -2,12 +2,12 @@
     <div>
         <h2>{{ home.title }}</h2>
         <div style="display:flex">
-            <img v-for="image in home.images" :key="image" :src="image" style="padding:5px" widht="200px" height="150" alt="Imagine a beautiful home.">
+            <img v-for="image in home.images" :key="image" :src="image" style="padding:5px; width:200px" alt="Imagine a beautiful home.">
         </div>
         <p>$<b>{{ home.pricePerNight }}</b> / night</p>
-        <p>{{ home.location.address }}, {{ home.location.city }}<br>
+        <p><img src="/images/marker.svg" width="20px" height="20px" /> {{ home.location.address }}, {{ home.location.city }}<br>
         {{ home.location.state }}, {{ home.location.country }}</p>
-        <p>Review Score: {{ home.reviewValue }}</p>
+        <p><img src="/images/star.svg" width="20px" height="20px" /> Review Score: {{ home.reviewValue }}</p>
         <p>Guests: {{ home.guests }}</p>
         <p>{{ home.bedrooms }} bedrooms, {{ home.beds }} beds and {{ home.bathrooms }} bathrooms.</p>
     </div>
