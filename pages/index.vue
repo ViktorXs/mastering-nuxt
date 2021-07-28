@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="home in homes" :key="home.objectID" style="padding:10px; float:left">
-      <router-link :to="`/home/${home.objectID}`"><home-card :home="home" /></router-link>
+      <nuxt-link :to="`/home/${home.objectID}`"><home-card :home="home" /></nuxt-link>
     </div>
   </div>
 </template>
