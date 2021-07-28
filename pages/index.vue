@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="home in homes" :key="home.objectID" style="padding:10px; float:left">
-      <home-card :home="home" />
+      <a :href="`/home/${home.objectID}`"><home-card :home="home" /></a>
     </div>
   </div>
 </template>
