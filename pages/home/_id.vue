@@ -14,13 +14,21 @@
 </template>
 
 <script>
-import homes from "~/data/homes"
+/* import homes from "~/data/homes" */ /* Sicherung vom API Kapitel */
 
 export default {
     layout: "blue",
+    /* Sicherung vor API Kapitel
     data(){
         return {
             homes: {}
+        }
+    },
+    */
+    async asyncData({ params, $dataApi }){
+        const home = await $dataApi.getHome(params.id)
+        return {
+            home,
         }
     },
     head(){
@@ -28,10 +36,10 @@ export default {
         title: this.home.title
         }
     },
+    /* Sicherung vor API Kapitel
     created(){
         const home = homes.find((home) => home.objectID === this.$route.params.id)
         this.home = home
-
-    }
+    */
 }
 </script>

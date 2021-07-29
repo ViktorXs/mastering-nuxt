@@ -16,6 +16,7 @@ export default {
     router: {
         prefetchLinks: false
     },
+    plugins: [ "~/plugins/dataApi" ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
