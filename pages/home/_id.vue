@@ -32,7 +32,10 @@ export default {
                 src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC7urtMkiAOKkmoubhVeI7XjUIUgNDufhw",
                 hid: "map",
                 defer: true,
-            }]
+                skip: process.client && window.mapLoaded
+            }],
+            innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
+            hid: "map-init"
         }
     },
     mounted(){
