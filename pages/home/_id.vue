@@ -16,9 +16,9 @@
 </template>
 
 <script>
+
 export default {
     layout: "blue",
-
     async asyncData({ params, $dataApi }){
         const home = await $dataApi.getHome(params.id)
         return {
@@ -33,12 +33,12 @@ export default {
                 hid: "map",
                 async: true, /* async lädt das Script asynchron, aber wartet auf nichts weiteres um ausgeführt zu werden. */
                 skip: process.client && window.mapLoaded
+            }, {
+                innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
+                hid: "map-init",
             }],
-            innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
-            hid: "map-init"
         }
     },
-
     mounted(){
         /* setInterval() = Mit Intervallen etwas endlos wiederholen */
         const timer = setInterval(() => {   /* Erster Parameter =  Die zu wiederholende Funktion */
@@ -48,15 +48,14 @@ export default {
             }
         }, 200)                             /* Zweiter Parameter =  Wenn nicht geladen, nach 200ms oder beliebig wiederholen. */
     },
-
     methods:{
         showMap(){
             const mapOptions = {
                 zoom: 18,
                 center: new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng),
                 disableDefaultUI: true,
-                mapTypeControl: true
-
+                mapTypeControl: true,
+                zoomControl: true
             }
             const map = new window.google.maps.Map(this.$refs.map, mapOptions)
             const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
