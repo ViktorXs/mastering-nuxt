@@ -22,9 +22,10 @@ export default {
     async asyncData({ params, $dataApi }){
         const home = await $dataApi.getHome(params.id)
         return {
-            home,
+            home
         }
     },
+
     head(){
         return {
             title: this.home.title,
@@ -35,12 +36,13 @@ export default {
                 skip: process.client && window.mapLoaded
             }, {
                 innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
-                hid: "map-init",
-            }],
+                hid: "map-init"
+            }]
         }
     },
+
     mounted(){
-        /* setInterval() = Mit Intervallen etwas endlos wiederholen */
+        /* setInterval() = Mit Intervallen etwas endlos wiederholen, bis es gestoppt wird */
         const timer = setInterval(() => {   /* Erster Parameter =  Die zu wiederholende Funktion */
             if(window.mapLoaded){           /* Wenn geladen... */
                 clearInterval(timer)        /* ... timer stoppen... */
@@ -48,6 +50,7 @@ export default {
             }
         }, 200)                             /* Zweiter Parameter =  Wenn nicht geladen, nach 200ms oder beliebig wiederholen. */
     },
+
     methods:{
         showMap(){
             const mapOptions = {
