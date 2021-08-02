@@ -29,27 +29,40 @@ export default {
         return {
             title: this.home.title,
             script: [{
-                src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC7urtMkiAOKkmoubhVeI7XjUIUgNDufhw",
+                src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA7yY1R5nFIJpk3xtVvMx9msaW-JbKBWX0&callback=initMap",
                 hid: "map",
-                defer: true,
+                async: true, /* async lädt das Script asynchron, aber wartet auf nichts weiteres um ausgeführt zu werden. */
                 skip: process.client && window.mapLoaded
             }],
             innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
             hid: "map-init"
         }
     },
-    mounted(){
-        const mapOptions = {
-            zoom: 18,
-            center: new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng),
-            disableDefaultUI: true,
-            mapTypeControl: true
 
-        }
-        const map = new window.google.maps.Map(this.$refs.map, mapOptions)
-        const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
-        const marker = new window.google.maps.Marker({ position })
-        marker.setMap(map)
+    mounted(){
+        /* setInterval() = Mit Intervallen etwas endlos wiederholen */
+        const timer = setInterval(() => {   /* Erster Parameter =  Die zu wiederholende Funktion */
+            if(window.mapLoaded){           /* Wenn geladen... */
+                clearInterval(timer)        /* ... timer stoppen... */
+                this.showMap()              /* ... und eine bel. Funktion laden laden. */
+            }
+        }, 200)                             /* Zweiter Parameter =  Wenn nicht geladen, nach 200ms oder beliebig wiederholen. */
     },
+
+    methods:{
+        showMap(){
+            const mapOptions = {
+                zoom: 18,
+                center: new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng),
+                disableDefaultUI: true,
+                mapTypeControl: true
+
+            }
+            const map = new window.google.maps.Map(this.$refs.map, mapOptions)
+            const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
+            const marker = new window.google.maps.Marker({ position })
+            marker.setMap(map)
+        }
+    }
 }
 </script>
