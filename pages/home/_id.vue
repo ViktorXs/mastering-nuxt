@@ -29,49 +29,15 @@ export default {
     head(){
         return {
             title: this.home.title,
-            /* Ins Plugin umgeschrieben
-            script: [{
-                src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA7yY1R5nFIJpk3xtVvMx9msaW-JbKBWX0&callback=initMap",
-                hid: "map",
-                async: true,*
-                skip: process.client && window.mapLoaded
-            }, {
-                innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
-                hid: "map-init"
-            }] */
         }
     },
 
     mounted(){
         /* Plugin abrufen und Parameter des Objekts dank der inject Funktion vom plugin übergeben. */
         this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
-
-        /* Nun unnötig dank mapWaiting Variable im Plugin.
-        const timer = setInterval(() => {
-            if(window.mapLoaded){
-                clearInterval(timer)
-                this.showMap()
-            }
-        }, 200)
-        */ 
     },
 
     methods:{
-        /* Ins Plugin übertragen
-        showMap(){
-            const mapOptions = {
-                zoom: 18,
-                center: new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng),
-                disableDefaultUI: true,
-                mapTypeControl: true,
-                zoomControl: true
-            }
-            const map = new window.google.maps.Map(this.$refs.map, mapOptions)
-            const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
-            const marker = new window.google.maps.Marker({ position })
-            marker.setMap(map)
-        } 
-        */
     }
 }
 </script>
