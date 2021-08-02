@@ -16,7 +16,14 @@ export default {
     router: {
         prefetchLinks: false
     },
-    plugins: [ "~/plugins/dataApi" ],
+    plugins:[ "~/plugins/maps.client", "~/plugins/dataApi" ],  /* Weil client in dateinamen steht, weiß Nuxt schon, dass es auf der Client Seite ausgeführt werden soll */
+    
+    /* Ursprünglich so:
+    plugins: [{
+        src: "~/plugins/maps.client",   /* Quelle angeben
+        mode: "client"                  /* Client oder Server?
+        /* Wenn mode nicht existiert, wird plugin standardmäßig in meide Modi ausgeführt
+    }] */
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [

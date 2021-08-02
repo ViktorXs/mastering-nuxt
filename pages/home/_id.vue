@@ -29,29 +29,35 @@ export default {
     head(){
         return {
             title: this.home.title,
+            /* Ins Plugin umgeschrieben
             script: [{
                 src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA7yY1R5nFIJpk3xtVvMx9msaW-JbKBWX0&callback=initMap",
                 hid: "map",
-                async: true, /* async lädt das Script asynchron, aber wartet auf nichts weiteres um ausgeführt zu werden. */
+                async: true,*
                 skip: process.client && window.mapLoaded
             }, {
                 innerHTML: "window.initMap = function(){ window.mapLoaded = true }",
                 hid: "map-init"
-            }]
+            }] */
         }
     },
 
     mounted(){
-        /* setInterval() = Mit Intervallen etwas endlos wiederholen, bis es gestoppt wird */
-        const timer = setInterval(() => {   /* Erster Parameter =  Die zu wiederholende Funktion */
-            if(window.mapLoaded){           /* Wenn geladen... */
-                clearInterval(timer)        /* ... timer stoppen... */
-                this.showMap()              /* ... und eine bel. Funktion laden laden. */
+        /* Plugin abrufen und Parameter des Objekts dank der inject Funktion vom plugin übergeben. */
+        this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
+
+        /* Nun unnötig dank mapWaiting Variable im Plugin.
+        const timer = setInterval(() => {
+            if(window.mapLoaded){
+                clearInterval(timer)
+                this.showMap()
             }
-        }, 200)                             /* Zweiter Parameter =  Wenn nicht geladen, nach 200ms oder beliebig wiederholen. */
+        }, 200)
+        */ 
     },
 
     methods:{
+        /* Ins Plugin übertragen
         showMap(){
             const mapOptions = {
                 zoom: 18,
@@ -64,7 +70,8 @@ export default {
             const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
             const marker = new window.google.maps.Marker({ position })
             marker.setMap(map)
-        }
+        } 
+        */
     }
 }
 </script>
