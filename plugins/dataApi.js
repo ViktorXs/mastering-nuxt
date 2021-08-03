@@ -12,7 +12,7 @@ inject("dataApi", { /* 1. Parameter: Name. 2. Parameter, Objekt */
     async function getHome(homeId){ /* async wandelt Code in synchr. promises um */
 
     /* Mit dem GET-Endpunkt verbinden. 1. Parameter: URL */
-        const response = fetch(`https://${appId}-dsn.algolia.net/1/indizes/homes/${homeId}`, {
+        const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
 
         /* 2. Parameter: Spezielle http header mitschicken */
             headers:{

@@ -19,6 +19,13 @@
 
 export default {
     layout: "blue",
+    async asyncData({ params, $dataApi }){
+        const home = await $dataApi.getHome(params.id)
+        return {
+            home
+        }
+    },
+
     head(){
         return {
             title: this.home.title,
@@ -26,11 +33,7 @@ export default {
     },
 
     mounted(){
-        /* Plugin abrufen und Parameter des Objekts dank der inject Funktion vom plugin übergeben. */
         this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
-    },
-
-    methods:{
     }
 }
 </script>
