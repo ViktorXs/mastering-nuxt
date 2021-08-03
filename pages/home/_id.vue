@@ -19,13 +19,6 @@
 
 export default {
     layout: "blue",
-    async asyncData({ params, $dataApi }){
-        const home = await $dataApi.getHome(params.id)
-        return {
-            home
-        }
-    },
-
     head(){
         return {
             title: this.home.title,
