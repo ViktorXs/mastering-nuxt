@@ -11,16 +11,30 @@ export default function(context, inject){
     })
 
     async function getHome(homeId){
-        return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers }))
-        async function unWrap(response){  /* response darauf vorbereiten auf die vue page zu returnen */
-            const json = await response.json()
-            const { ok, status, statusText } = response
-            return {
-                json,
-                ok,
-                status,
-                statusText
-            }
+        try{
+            return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers }))
+        } catch(error){
+            return getErrorResponse(error)
+        }
+    }
+
+    async function unWrap(response){
+        const json = await response.json()
+        const { ok, status, statusText } = response
+        return {
+            json,
+            ok,
+            status,
+            statusText
+        }
+    }
+
+    function getErrorResponse(error){
+        return{
+            ok: false,
+            status: 500,
+            statusText: error.message,
+            json: {}
         }
     }
 }
