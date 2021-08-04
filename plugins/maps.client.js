@@ -10,7 +10,7 @@ export default function(context, inject){ /* Inject speist ein Objekt oder ein W
 
     function addScript(){
         const script = document.createElement("script") /* Das HTML script-tag erzeugen */
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB6N3pnKMnXvre6uMwZjMVBeYc-UVwOcqI&callback=initMap"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyA87wOMy7H1CMDuH9jY9LgtqFw5zsV1RvQ&callback=initMap"
         script.async = true
         window.initMap = initMap            /* Globale Funktion der lokalen Funktion zugewiesen mit einem "function pointer", um die Funktion von unten zu aktivieren  */
         document.head.appendChild(script)   /* Script in das HTML Dokument einfügen */
