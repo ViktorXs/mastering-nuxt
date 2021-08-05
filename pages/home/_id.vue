@@ -15,7 +15,7 @@
         <img :src="review.reviewer.image" />
         <h3>{{ review.reviewer.name }}</h3>
         <p>{{ review.rating }}</p>
-        <p>{{ review.date }}</p>
+        <p>{{ dateTransform(review.date) }}</p>
         <p>{{ review.comment }}</p>
     </div>
 </div>
@@ -48,6 +48,15 @@ export default {
 
     mounted(){
         this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
+    },
+
+    methods:{
+        /* Datum mit der JS Date Funktion */
+        dateTransform(dateStr){
+            const date = new Date(dateStr)
+            const options = { weekday: "long", year: "numeric", month: "numeric", day: "2-digit" }
+            return date.toLocaleDateString("de-De", options)
+        }
     }
 }
 </script>
