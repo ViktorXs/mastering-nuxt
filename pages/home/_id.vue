@@ -16,7 +16,7 @@
         <h3>{{ review.reviewer.name }}</h3>
         <p>{{ review.rating }}</p>
         <p>{{ dateTransform(review.date) }}</p>
-        <p>{{ review.comment }}</p>
+        <short-text :text="review.comment" :target="150" />
     </div>
 </div>
 </template>
@@ -50,11 +50,12 @@ export default {
         this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
     },
 
-    methods:{
+    methods: {
         /* Datum mit der JS Date Funktion */
         dateTransform(dateStr){
             const date = new Date(dateStr)
             const options = { weekday: "long", year: "numeric", month: "numeric", day: "2-digit" }
+
             return date.toLocaleDateString("de-De", options)
         }
     }
