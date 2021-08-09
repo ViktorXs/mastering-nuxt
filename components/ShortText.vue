@@ -1,5 +1,9 @@
 <template>
-<span>{{ displayText }}</span>
+<span>
+    {{ displayText }}
+    <button v-if="isTooLong && !isExpanded" type="button" @click="isExpanded = true"> read more!</button>
+    <button v-if="isTooLong && isExpanded" type="button"  @click="isExpanded = false"> hide Text</button>
+</span>
 </template>
 
 <script>
@@ -46,7 +50,7 @@ export default {
             if(this.text.length <= this.target || position === -1)  /* Wenn Text kleiner oder gleich wie target oder keine Leerzeichen nach target length... */
                 return [this.text]                                  /* ... returne den Text. ansonsten ... */
                                                     /* ... teile Text auf in zwei Arrays mit substring ... */
-            return [this.text.substring(0, position), this.text.substring(position)] /* ... von position 0 bis target und von target bis Textende (wenn kein 2. Parameter vergeben) */
+            return [this.text.substring(0, position), this.text.substring(position)]  /* ... von position 0 bis target und von target bis Textende (wenn kein 2. Parameter vergeben) */
         }
     }
 }
