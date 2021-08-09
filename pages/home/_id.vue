@@ -22,7 +22,6 @@
 </template>
 
 <script>
-
 export default {
     layout: "blue",
     async asyncData({ params, $dataApi, error }){
