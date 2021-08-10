@@ -16,7 +16,7 @@
         <h3>{{ review.reviewer.name }}</h3>
         <p>{{ review.rating }}</p>
         <p>{{ dateTransform(review.date) }}</p>
-        <short-text :text="review.comment" :target="150" />
+        <short-text :text="review.comment" :target="46" />
     </div>
 </div>
 </template>

@@ -8,7 +8,8 @@ export default function(context, inject){
 
     inject("dataApi", {
         getHome,
-        getReviewsByHomeId
+        getReviewsByHomeId,
+        getUsersByHomeId
     })
 
     async function getHome(homeId){
@@ -26,7 +27,25 @@ export default function(context, inject){
                 method: "POST",
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
-                    /* hitsPerPage: "3" */
+                    hitsPerPage: "6", /* Angeben, wie viele Objekte aus der Datenbank pro Seite angezeigt werden dürfen. */
+                    attributesToHighlight: []
+                })
+            }))
+        } catch(error){
+            return getErrorResponse(error)
+        }
+    }
+
+    /* Neue Datenbank: Benutzer. Wie getReviewsByHomeId. In Algolia users.json hochgeladen und facet auf homeId gesetzt. */
+    async function getUsersByHomeId(homeId){
+        try{
+            return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, { 
+                headers,
+                method: "POST",
+                body: JSON.stringify({
+                    filters: `homeId:${homeId}`,
+                    hitsPerPage: "6",
+                    attributesToHighlight: []
                 })
             }))
         } catch(error){
