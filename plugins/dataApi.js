@@ -44,7 +44,7 @@ export default function(context, inject){
                 method: "POST",
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
-                    hitsPerPage: "6",
+                    /* hitsPerPage: "1", */ /* Nicht notwendig, da nur ein Host / User notwendig ist, der die Unterkunft verwaltet */
                     attributesToHighlight: []
                 })
             }))
