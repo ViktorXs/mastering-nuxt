@@ -31,7 +31,7 @@ export default {
             return this.chunks.length === 2  /* Wenn chunks (aus getChunks()) zwei textarrays hat, dann isTooLong() = true */
         },
         displayText(){
-            if(!this.isTooLong || this.isExpanded)  /* Wenn isTooLong != true oder expanded = true... */
+            if(!this.isTooLong || this.isExpanded || this.notTooLong )  /* Wenn isTooLong != true oder expanded = true... */
                 return this.chunks.join(" ")        /* returne chunks oder... */
             
             return this.chunks[0] + " ..."  /* ... wenn isTooLong = true oder isExpanded = false sende ersten Chunk und füge ... an */
@@ -47,8 +47,8 @@ export default {
         getChunks() {  /* Erster Chunk ist, entweder Text kurz genug oder target ist "-1", also indexOf findet keine Leerzeichen nach target length */
             const position = this.text.indexOf(" ", this.target)  /* mit indexOf das nächste Leerzeichen finden nach target */
             
-            if(this.text.length <= this.target || position === -1)  /* Wenn Text kleiner oder gleich wie target oder keine Leerzeichen nach target length... */
-                return [this.text]                                  /* ... returne den Text. ansonsten ... */
+            if(this.text.length <= this.target || position === -1 || this.text.length / (this.target / 100) <= 150)  /* Wenn Text kleiner oder gleich wie target oder keine Leerzeichen nach target length ODER Die Verkürzung kürzer ist als 1/3 vom ganzen Text ... */
+                return [this.text]                                  /* ... returne den ganzen Text. ansonsten ... */
                                                     /* ... teile Text auf in zwei Arrays mit substring ... */
             return [this.text.substring(0, position), this.text.substring(position)]  /* ... von position 0 bis target und von target bis Textende (wenn kein 2. Parameter vergeben) */
         }
