@@ -27,7 +27,7 @@ export default function(context, inject){
                 method: "POST",
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
-                    hitsPerPage: "6", /* Angeben, wie viele Objekte aus der Datenbank pro Seite angezeigt werden dürfen. */
+                    hitsPerPage: "6",
                     attributesToHighlight: []
                 })
             }))
@@ -36,7 +36,6 @@ export default function(context, inject){
         }
     }
 
-    /* Neue Datenbank: Benutzer. Wie getReviewsByHomeId. In Algolia users.json hochgeladen und facet auf homeId gesetzt. */
     async function getUsersByHomeId(homeId){
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, { 
@@ -44,7 +43,6 @@ export default function(context, inject){
                 method: "POST",
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
-                    /* hitsPerPage: "1", */ /* Nicht notwendig, da nur ein Host / User notwendig ist, der die Unterkunft verwaltet */
                     attributesToHighlight: []
                 })
             }))
