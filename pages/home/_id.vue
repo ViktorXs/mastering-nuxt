@@ -10,9 +10,9 @@
     <p><img src="/images/star.svg" width="20px" height="20px" /> Review Score: {{ home.reviewValue }}</p>
     <p>Guests: {{ home.guests }}</p>
     <p>{{ home.bedrooms }} bedrooms, {{ home.beds }} beds and {{ home.bathrooms }} bathrooms.</p>
-    <img :src="user.image" />
 
     <!-- Host Section Lektion -->
+    <img :src="user.image" />
     <h3>{{ user.name }}</h3>
     <p>Joined: {{ dateTransform(user.joined) }}</p>
     <p>Reviews: {{ user.reviewCount }}</p>
