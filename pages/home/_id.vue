@@ -6,9 +6,9 @@
         <img v-for="image in home.images" :key="image" :src="image" style="padding:5px; width:200px" alt="Imagine a beautiful home.">
     </div>
     <p>$<b>{{ home.pricePerNight }}</b> / night</p>
-    <p><img src="/images/marker.svg" height="20px" width="20px"/> {{ home.location.address }}, {{ home.location.city }}<br>
+    <p><img src="/images/marker.svg" width="20px" height="20px"/> {{ home.location.address }}, {{ home.location.city }}<br>
     {{ home.location.state }}, {{ home.location.country }}</p>
-    <p><img src="/images/star.svg" height="20px" width="20px" /> Review Score: {{ home.reviewValue }}</p>
+    <p><img src="/images/star.svg" width="20px" height="20px" /> Review Score: {{ home.reviewValue }}</p>
     <p>Guests: {{ home.guests }}</p>
     <p>{{ home.bedrooms }} bedrooms, {{ home.beds }} beds and {{ home.bathrooms }} bathrooms.</p>
 
@@ -20,7 +20,7 @@
     <short-text :text="user.description" :target="150" />
 
     <!-- Google Maps -->
-    <div ref="map" style="height: 800px; width:800px"></div>
+    <div ref="map" style="width: 800px; height:800px"></div>
 
     <!-- Review Section -->
     <div v-for="review in reviews" :key="review.objectID">
@@ -37,22 +37,20 @@
 export default {
     layout: "blue",
     async asyncData({ params, $dataApi, error }){
-        const homeResponse = await $dataApi.getHome(params.id)
-        if(!homeResponse.ok)
-            return error({ statusCode: homeResponse.status, message: homeResponse.statusText })
+        const responses = await Promise.all([
+            $dataApi.getHome(params.id),
+            $dataApi.getReviewsByHomeId(params.id),
+            $dataApi.getUsersByHomeId(params.id)
+        ])
 
-        const reviewResponse = await $dataApi.getReviewsByHomeId(params.id)
-        if(!reviewResponse.ok)
-            return error({ statusCode: reviewResponse.status, message: reviewResponse.statusText })
-
-        const userResponse = await $dataApi.getUsersByHomeId(params.id)
-        if(!userResponse.ok)
-            return error({ statusCode: userResponse.status, message: userResponse.statusText })
+        const badResponse = responses.find((response) => !response.ok)
+        if(badResponse)
+            return error({ statusCode: badResponse.status, message: badResponse.statusText })
         
         return {
-            home: homeResponse.json,
-            reviews: reviewResponse.json.hits,
-            user: userResponse.json.hits[0]
+            home: responses[0].json,
+            reviews: responses[1].json.hits,
+            user: responses[2].json.hits[0]
         }
     },
 
