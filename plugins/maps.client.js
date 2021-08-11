@@ -1,6 +1,6 @@
 export default function(context, inject){
 
-    let mapLoaded = false
+    let isLoaded = false
     let waiting = []
 
     addScript()
@@ -10,14 +10,14 @@ export default function(context, inject){
 
     function addScript(){
         const script = document.createElement("script")
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBibKxcDcRFoM2bibMwQCDjMYiuqYxnjt4&callback=initMap"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBibKxcDcRFoM2bibMwQCDjMYiuqYxnjt4&callback=initGoogleMaps"
         script.async = true
-        window.initMap = initMap
+        window.initGoogleMaps = initGoogleMaps
         document.head.appendChild(script)
     }
 
-    function initMap(){
-        mapLoaded = true
+    function initGoogleMaps(){
+        isLoaded = true
 
         waiting.forEach((item) => {  /* gehe durch jede Funktion in variable waiting */
             if(typeof item.fn === "function") {  /* wenn item als Typ eine Funktion ist... */
@@ -28,7 +28,7 @@ export default function(context, inject){
     }
 
     function showMap(canvas, lat, lng){
-        if(!mapLoaded) {
+        if(!isLoaded) {
             waiting.push({      /* Folgende zwei Eigenschaften in das Array waiting einfügen */
                 fn: showMap,    /* fn = Funktion = Nicht in Anführungsstrichen. Referenz zur aktuellen Funktion */
                 arguments       /* arguments ist eine Variable von JS. Alle Variablen einer Funktion */
