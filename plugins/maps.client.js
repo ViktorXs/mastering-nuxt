@@ -47,13 +47,13 @@ export default function(context, inject){
     }
 
     function showMap(canvas, lat, lng) {
-        if(!isLoaded) {         /* Wenn nicht geladen = false ... */
-            waiting.push({      /* ... folgende zwei Eigenschaften in das Array waiting einfügen */
-                fn: showMap,    /* fn = Funktion = Nicht in Anführungsstrichen. Referenz zur aktuellen Funktion */
-                arguments       /* arguments ist eine Variable von JS. Alle Variablen einer Funktion */
+        if(!isLoaded) {
+            waiting.push({
+                fn: showMap,
+                arguments
             })
-            return              /* nichts ausführen, solange die map nicht geladen ist.  */
-        }  /* alles was hiernach steht, ist Code, der ausgeführt werden kann, wenn google geladen ist  */
+            return
+        }
 
         const mapOptions = {
             zoom: 18,
