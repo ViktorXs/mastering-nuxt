@@ -42,7 +42,7 @@ export default function(context, inject){
         const autoComplete = new window.google.maps.places.Autocomplete(input, options)
         autoComplete.addListener("place_changed", () => {  /* 1. argument: "name of the event to listen to." 2. argument: "callback function" */
             const place = autoComplete.getPlace()  /* Was per autoComplete gefunden/ausgewählt wurde, holt sich getPlace() die Informationen des Ortes. */
-            input.dispatchEvent(new CustomEvent("changed", { detail: place }))  /* Emit an Event of our own directly on the input element */
+            input.dispatchEvent(new CustomEvent("changed", { detail: place }))  /* "Emit an Event of our own directly on the input element" */
         })
     }
 

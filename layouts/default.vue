@@ -27,7 +27,7 @@ export default {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                     label: this.$refs.citySearch.value  /* der URL ein label geben */
-                } 
+                }
             })
         }
     }
