@@ -8,54 +8,53 @@
 
 <script>
 export default {
-    props: {  /* Dafür zwei Props notwendig: */
-        text: {  /* text, welcher den Text enthält... */
+    props: {
+        text: {
             type: String,
             required: true
         },
-        target: { /* ... und target, wie kurz der Text werden soll */
+        target: {
             type: Number,
             required: true
         }
     },
 
-    data() {  /* Standardmäßig soll der Text schon eingeklappt sein, daher vorgeben, dass mit ... */
+    data() {
         return {
-            isExpanded: false,  /* ... isExpanded der Text schon eingeklappt ist */
-            chunks: []          /* und ein Ort, wo die Chunks gespeichert werden sollen */
+            isExpanded: false,
+            chunks: []
         }
     },
 
     computed: {
         isTooLong(){
-            return this.chunks.length === 2  /* Wenn chunks (aus getChunks()) zwei textarrays hat, dann isTooLong() = true */
+            return this.chunks.length === 2
         },
         displayText(){
-            if(!this.isTooLong || this.isExpanded || this.notTooLong )  /* Wenn isTooLong != true oder expanded = true... */
-                return this.chunks.join(" ")        /* returne chunks oder... */
+            if(!this.isTooLong || this.isExpanded || this.notTooLong )
+                return this.chunks.join(" ")
             
-            return this.chunks[0] + " ..."  /* ... wenn isTooLong = true oder isExpanded = false sende ersten Chunk und füge ... an */
+            return this.chunks[0] + " ..."
         }
     },
 
-    created() {  /* created() statt mounted(), damit auf Server und Client ausgeführt wird, damit Text nicht zuerst in ganzer Länge am Client udn dann verkürzt wird */
+    created() {
         this.chunks = this.getChunks()
     },
 
     methods: {
-        /* Chunks aufteilen am Leerzeichen */
-        getChunks() {  /* Erster Chunk ist, entweder Text kurz genug oder target ist "-1", also indexOf findet keine Leerzeichen nach target length */
-            const position = this.text.indexOf(" ", this.target)  /* mit indexOf das nächste Leerzeichen finden nach target */
+        getChunks() {
+            const position = this.text.indexOf(" ", this.target)
             
-            if(this.text.length <= this.target || position === -1 || this.text.length / (this.target / 100) <= 150)  /* Wenn Text kleiner oder gleich wie target oder keine Leerzeichen nach target length ODER Die Verkürzung kürzer ist als 1/3 vom ganzen Text ... */
-                return [this.text]                                  /* ... returne den ganzen Text. ansonsten ... */
-                                                    /* ... teile Text auf in zwei Arrays mit substring ... */
-            return [this.text.substring(0, position), this.text.substring(position)]  /* ... von position 0 bis target und von target bis Textende (wenn kein 2. Parameter vergeben) */
+            if(this.text.length <= this.target || position === -1 || this.text.length / (this.target / 100) <= 150)
+                return [this.text]
+
+            return [this.text.substring(0, position), this.text.substring(position)]
         }
     }
 }
 </script>
-<style scoped>  /* scoped = nur in dieser Datei / Komponente anwenden */
+<style scoped>
 .link {
     color: blue;
     background-color: white;

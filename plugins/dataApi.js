@@ -9,7 +9,7 @@ export default function(context, inject){
     inject("dataApi", {
         getHome,
         getReviewsByHomeId,
-        getUsersByHomeId
+        getUserByHomeId
     })
 
     async function getHome(homeId){
@@ -36,7 +36,7 @@ export default function(context, inject){
         }
     }
 
-    async function getUsersByHomeId(homeId){
+    async function getUserByHomeId(homeId){
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, { 
                 headers,
