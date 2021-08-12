@@ -52,13 +52,14 @@ export default function(context, inject){
         }
     }
 
-    async function getHomesByLocation(lat, lng, radiusInMeters = 1500){
+    /* Neuer Algolia API Call um die Unterkünfte per Koordinaten zu erhalten */
+    async function getHomesByLocation(lat, lng, radiusInMeters = 1500){  /* Standardvalue bei 1500 Meter */
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/query`, { 
                 headers,
                 method: "POST",
                 body: JSON.stringify({
-                    hitsPerPage: 10,
+                    hitsPerPage: 10,  /* 10 Unterkunfts-Ergebnisse pro Seite */
                     attributesToHighlight: []
                 })
             }))
