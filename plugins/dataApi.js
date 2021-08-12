@@ -59,6 +59,8 @@ export default function(context, inject){
                 headers,
                 method: "POST",
                 body: JSON.stringify({
+                    aroundLatLng: `${lat}, ${lng}`,  /* Google Places Funktion um nach der Geologischen Position filtern. */
+                    aroundRadius: radiusInMeters,  /* Algolia Funktion um Suchbereich mit radiusInMeters einzuschränken. */
                     hitsPerPage: 10,  /* 10 Unterkunfts-Ergebnisse pro Seite */
                     attributesToHighlight: []
                 })
