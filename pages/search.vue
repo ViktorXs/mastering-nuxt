@@ -2,7 +2,7 @@
 <div>
     <div><p>Place: {{ lat }} / {{ lng }} / {{ label }}</p></div>
     <div v-for="home in homes" :key="home.ObjectID">
-        <nuxt-link :to="`~/home/${home.objectID}`" prefetch><home-card :home="home" /></nuxt-link>  <!-- Suchergebnisse per nuxt-link verknüpfen, wie auf der index page -->
+        <nuxt-link :to="`/home/${home.objectID}`" prefetch><home-card :home="home" /></nuxt-link>  <!-- Suchergebnisse per nuxt-link verknüpfen, wie auf der index page -->
     </div>
 </div>
 </template>
