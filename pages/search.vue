@@ -2,27 +2,32 @@
 <div>
     <div><p>Place: {{ lat }} / {{ lng }} / {{ label }}</p></div>
     <div v-for="home in homes" :key="home.ObjectID">
-        <nuxt-link :to="`/home/${home.objectID}`" prefetch><home-card :home="home" /></nuxt-link>  <!-- Suchergebnisse per nuxt-link verknüpfen, wie auf der index page -->
+        <nuxt-link :to="`/home/${home.objectID}`" prefetch><home-card :home="home" /></nuxt-link>
     </div>
 </div>
 </template>
 
 <script>
 export default {
-    /* SEO freundlich. Kein ".this" in asyncData */
-    /* Daten aus Datenbank holen um Unterkünfte an dem gesuchten Ort hervorzuheben */
-    async asyncData({ query, $dataApi }) {  /* asyncData({ query }) {} Kontextparameter von asyncData(context) {} */ /* query "destructurieren" aus dem template */
-        const data = await $dataApi.getHomesByLocation(query.lat, query.lng)  /* Position der Unterkünfte (im Umkreis von 1500 m) */
+    async beforeRouteUpdate(to, from, next) {  /* statt awaitQuery (Weil verbuggt im dev modus) stellt der "navigation guard" beforeRouteUpdate sicher, wenn eine neue url dieselbe page componente lädt, der enthaltene code auch ausgeführt wird. */
+        const data = await this.$dataApi.getHomesByLocation(to.query.lat, to.query.lng)  /* mit this. auf den kontext in data zugreifen. */
+        this.homes = data.json.hits
+        this.label = to.query.label
+        this.lat = to.query.lat
+        this.lng = to.query.lng
+        next()  /* Callback Funktion um weitere Navigation-Guards auszuführen. Wichtig, weil ohne next mögliche weitere Navigation guards nicht ausgeführt werden und die Navigation stoppt. */
+    },
+
+    async asyncData({ query, $dataApi }) {
+        const data = await $dataApi.getHomesByLocation(query.lat, query.lng)
         
-        return {  /* Daten für Suchergebnis */
-            homes: data.json.hits,  /* Wie in homes-page, fügt Algolia die Ergebnisse in ein "hits" Array  */
-            /* ...query, */ /* Nicht zu empfehlen, weil user in der URL alle Daten aus query manipulieren können */
+        return {
+            homes: data.json.hits,
             label: query.label,
             lat: query.lat,
             lng: query.lng,
         }
-    },
-
-    watchQuery: ["label"],  /* Watcher für query strings, wenn diese verändert werden, dann werden alle Komponenten und Funktionen abgerufen, damit Ergebnisse neu laden. */
+        /* awaitQuery: ["label"] nicht mehr notwendig */
+    }
 }
 </script>

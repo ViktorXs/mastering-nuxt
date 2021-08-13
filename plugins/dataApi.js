@@ -52,16 +52,15 @@ export default function(context, inject){
         }
     }
 
-    /* Neuer Algolia API Call um die Unterkünfte per Koordinaten zu erhalten */
-    async function getHomesByLocation(lat, lng, radiusInMeters = 1500){  /* Standardvalue bei 1500 Meter */
+    async function getHomesByLocation(lat, lng, radiusInMeters = 1500){
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/query`, { 
                 headers,
                 method: "POST",
                 body: JSON.stringify({
-                    aroundLatLng: `${lat}, ${lng}`,  /* Google Places Funktion um nach der Geologischen Position filtern. */
-                    aroundRadius: radiusInMeters,  /* Algolia Funktion um Suchbereich mit radiusInMeters einzuschränken. */
-                    hitsPerPage: 10,  /* 10 Unterkunfts-Ergebnisse pro Seite */
+                    aroundLatLng: `${lat}, ${lng}`,
+                    aroundRadius: radiusInMeters,
+                    hitsPerPage: 10,
                     attributesToHighlight: []
                 })
             }))
