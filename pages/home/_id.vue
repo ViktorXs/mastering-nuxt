@@ -9,8 +9,8 @@
     <p><img src="/images/marker.svg" width="20px" height="20px"/> {{ home.location.address }}, {{ home.location.city }}<br>
     {{ home.location.state }}, {{ home.location.country }}</p>
     <p><img src="/images/star.svg" width="20px" height="20px" /> Review Score: {{ home.reviewValue }}</p>
-    <p>Guests: {{ home.guests }}</p>
-    <p>{{ home.bedrooms }} bedrooms, {{ home.beds }} beds and {{ home.bathrooms }} bathrooms.</p>
+    <p>{{ toPlural(home.guests, "guest") }}</p>
+    <p>{{ toPlural(home.bedrooms, "room") }}, {{ toPlural(home.beds, "bed") }} and {{ toPlural(home.bathrooms, "bath") }}.</p>
 
     <!-- Host Section -->
     <img :src="user.image" />
@@ -65,11 +65,18 @@ export default {
     },
 
     methods: {
-        dateTransform(dateStr){
+        dateTransform(dateStr) {
             const date = new Date(dateStr)
             const options = { weekday: "long", year: "numeric", month: "numeric", day: "2-digit" }
 
             return date.toLocaleDateString("de-De", options)
+        },
+
+        toPlural(number, singular) {
+            const text = `${number} ${singular}`
+            if(number === 1)
+                return text
+            return text + "s"
         }
     }
 }

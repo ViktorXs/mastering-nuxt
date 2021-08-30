@@ -1,9 +1,10 @@
 <template>
 <div>
     <div><p>Place: {{ lat }} / {{ lng }} / {{ label }}</p></div>
-    <div>
+    <div v-if="homes.length > 0">  <!-- Wenn keine Objekte gefunden werden... -->
         <HomeRow v-for="home in homes" :key="home.ObjectID" :home="home" />
     </div>
+    <div v-else>No results found.</div>  <!-- ... dann "No results found" -->
 </div>
 </template>
 
@@ -26,6 +27,12 @@ export default {
             label: query.label,
             lat: query.lat,
             lng: query.lng,
+        }
+    },
+
+    head(){
+        return {
+            title: `Homes around ${this.label}`  /* Name des Suchergebnisses im Titel angeben */
         }
     }
 }
