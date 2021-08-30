@@ -51,7 +51,6 @@ export default function(context, inject){
             })
             return
         }
-
         const mapOptions = {
             zoom: 18,
             center: new window.google.maps.LatLng(lat, lng),
@@ -64,7 +63,7 @@ export default function(context, inject){
             const position = new window.google.maps.LatLng(lat, lng)
             const marker = new window.google.maps.Marker({ position })
             marker.setMap(map)
-            /* return */ /* Im Tutorial wird es verwendet, aber ist nicht notwendig, weil so oder so der Marker returned wird. */
+            return
         }
         const bounds = new window.google.maps.LatLngBounds()  /* Bereich Angeben, welches auf die Marker begrenzt werden soll */
         markers.forEach((home) => {  /* Marker mit einer anonymen Funktion definieren aus jedem home objekt */
