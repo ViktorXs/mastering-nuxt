@@ -1,5 +1,3 @@
-import { forEach } from "core-js/core/array"
-
 export default function(context, inject){
 
     let isLoaded = false
