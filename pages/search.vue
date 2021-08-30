@@ -1,11 +1,11 @@
 <template>
 <div>
-    <div><p>Results for: {{ label }}</p></div>  <!-- Ergebnisse für gesuchten Ort -->
-    <div ref="map" style="width: 800px; height:800px; float: right"></div>  <!-- Map einfügen -->
-    <div v-if="homes.length > 0">
-        <HomeRow v-for="home in homes" :key="home.ObjectID" :home="home" />
+    <div><p>Results for: {{ label }}</p></div>
+    <div ref="map" style="height: 800px; width:800px; float: right"></div>  <!-- Map einfügen -->
+    <div v-if="homes.length > 0">  <!-- Wenn Objekte gefunden werden... -->
+        <HomeRow v-for="home in homes" :key="home.ObjectID" :home="home" />  <!-- ... dann das ausführen, ... -->
     </div>
-    <div v-else>No results found.</div>
+    <div v-else>No results found.</div>  <!-- ... ansonsten "No results found" bei keinen Objekten -->
 </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
         this.label = to.query.label
         this.lat = to.query.lat
         this.lng = to.query.lng
-        this.updateMap()  /* Map soll ebenso geladen werden, wenn neue URL auf die gleiche page führt */
+        this.updateMap()
         next()
     },
 
@@ -39,12 +39,19 @@ export default {
     },
 
     mounted() {
-        this.updateMap()  /* Map aktualisieren, wenn die Page geladen ist */
+        this.updateMap()
     },
 
     methods: {
         updateMap(){
-            this.$maps.showMap(this.$refs.map, this.lat, this.lng) /* Map laden */
+            this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())  /* Markerpositionen übergeben */
+        },
+        getHomeMarkers() {
+            return this.homes.map((home) => {  /* mit JS Funktion Array.map() eine Funktion auf jedes Element des Arrays anwenden */
+                return {
+                    ...home._geoloc  /* lng & lat durch ...-spread erhalten */
+                }
+            })
         }
     }
 }
