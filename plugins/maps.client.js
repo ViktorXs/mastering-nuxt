@@ -1,3 +1,5 @@
+import { forEach } from "core-js/core/array"
+
 export default function(context, inject){
 
     let isLoaded = false
@@ -44,8 +46,7 @@ export default function(context, inject){
         })
     }
 
-    function showMap(canvas, lat, lng) {
-        if(!isLoaded) {
+    function showMap(canvas, lat, lng, markers) {  /* markers Parameter für die Markers auf der Karte bei den Suchergebnissen aus der Funktion getHomeMarkers() */        if(!isLoaded) {
             waiting.push({
                 fn: showMap,
                 arguments
@@ -61,8 +62,19 @@ export default function(context, inject){
             zoomControl: true
         }
         const map = new window.google.maps.Map(canvas, mapOptions)
-        const position = new window.google.maps.LatLng(lat, lng)
-        const marker = new window.google.maps.Marker({ position })
-        marker.setMap(map)
+        if(!markers) {  /* Wenn keine markers Parameter, dann Position und einzelnen Marker ausgeben  */
+            const position = new window.google.maps.LatLng(lat, lng)
+            const marker = new window.google.maps.Marker({ position })
+            marker.setMap(map)
+            /* return */ /* Im Tutorial wird es verwendet, aber ist nicht notwendig, weil so oder so der Marker returned wird. */
+        }
+        const bounds = new window.google.maps.LatLngBounds()  /* Bereich Angeben, welches auf die Marker begrenzt werden soll */
+        markers.forEach((home) => {  /* Marker mit einer anonymen Funktion definieren aus jedem home objekt */
+            const position = new window.google.maps.LatLng(home.lat, home.lng)  /* lat & lng des home Parameters nehmen */
+            const marker = new window.google.maps.Marker({ position })  /* Marker auf position platzieren */
+            marker.setMap(map)
+            bounds.extend(position)  /* Anhand der lat & lng Positionen den Bereich auf diese Position erweitern */
+        })
+        map.fitBounds(bounds)  /* Kartenansicht auf die Grenzen zoomen */
     }
 }

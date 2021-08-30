@@ -47,7 +47,7 @@ export default {
             this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())  /* Markerpositionen übergeben */
         },
         getHomeMarkers() {
-            return this.homes.map((home) => {  /* mit JS Funktion Array.map() eine Funktion auf jedes Element des Arrays anwenden */
+            return this.homes.map((home) => {  /* mit JS Funktion Array.map() eine Kopie der home Array erstellen und Funktion auf jedes Element des Arrays anwenden */
                 return {
                     ...home._geoloc  /* lng & lat durch ...-spread erhalten */
                 }
