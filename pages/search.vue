@@ -3,7 +3,9 @@
     <div><p>Results for: {{ label }}</p></div>
     <div ref="map" style="height: 800px; width:800px; float: right"></div>  <!-- Map einfügen -->
     <div v-if="homes.length > 0">  <!-- Wenn Objekte gefunden werden... -->
-        <HomeRow v-for="home in homes" :key="home.ObjectID" :home="home" />  <!-- ... dann das ausführen, ... -->
+    <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">  <!-- Ergebnisse einzeln zu ihren home id's verlinken -->
+        <HomeRow :home="home" />  <!-- ... dann das ausführen, ... -->
+    </nuxt-link>
     </div>
     <div v-else>No results found.</div>  <!-- ... ansonsten "No results found" bei keinen Objekten -->
 </div>
