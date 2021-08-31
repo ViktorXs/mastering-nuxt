@@ -57,7 +57,12 @@ export default function(context, inject){
             center: new window.google.maps.LatLng(lat, lng),
             disableDefaultUI: true,
             mapTypeControl: true,
-            zoomControl: true
+            zoomControl: true,
+            styles: [{
+                featureType: "poi.business",
+                elementType: "labels.icon",
+                stylers: [{ visibility: "off" }]
+            }]
         }
         const map = new window.google.maps.Map(canvas, mapOptions)
         if(!markers) {
@@ -72,11 +77,11 @@ export default function(context, inject){
             const position = new window.google.maps.LatLng(home.lat, home.lng)
             const marker = new window.google.maps.Marker({ 
                 position,
-                label: {                             /* Text in Marker setzen */  
-                    text: `$${home.pricePerNight}`,  /* Das Label mit dem Text / der Nummer (Preis). Mit $ in Nummer konvertiert */
-                    className: "marker"
+                label: {                                 /* Text in Marker setzen */  
+                    text: `$${home.pricePerNight}`,      /* Das Label mit dem Text / der Nummer (Preis). Mit $ in Nummer konvertiert */
+                    className: `marker home-${home.id}`  /* Der CSS Klasse die ID aus der getHomeMarkers() Funktion aus search.vue übergeben */
                 },
-                icon: "https://maps.gstatic.com/mapfiles/transparent.png"   /* Den originalen Marker mit einer transparenten Bilddatei ersetzen */
+                icon: "https://maps.gstatic.com/mapfiles/transparent.png"  /* Den originalen Marker mit einer transparenten Bilddatei ersetzen */
             })
             marker.setMap(map)
             bounds.extend(position)

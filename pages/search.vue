@@ -4,7 +4,7 @@
     <div ref="map" style="height: 800px; width:800px; float: right"></div>
     <div v-if="homes.length > 0">
     <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">
-        <HomeRow :home="home" />
+        <HomeRow :home="home" @mouseover.native="highlightMarker(home.objectID, true)" @mouseleave.native="highlightMarker(home.objectID, false)"/>  <!-- mouseover-event triggern an Funktion -->
     </nuxt-link>
     </div>
     <div v-else>No results found.</div>
@@ -44,7 +44,11 @@ export default {
         this.updateMap()
     },
 
-    methods: {
+    methods: {         
+        /* highlightMarker(homeId für Selektor & isHighlighted ist ein bool, um die marker-highlight CSS Klasse einzufügen oder zu entfernen */
+        highlightMarker(homeId, isHighlighted) {  /* Code zum Umschalten der CSS Klasse, wenn über ein Objekt gehovert wird */
+            document.getElementsByClassName(`home-${homeId}`)[0]?.classList?.toggle("marker-highlight", isHighlighted)  /* ?. = Anwenden, wenn etwas gefunden wird, ansonsten "undefined". Ersetzt ein if-statement */
+        },
         updateMap(){
             this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())
         },
@@ -52,7 +56,8 @@ export default {
             return this.homes.map((home) => {
                 return {
                     ...home._geoloc,
-                    pricePerNight: home.pricePerNight  /* Für Marker mit Preis label, die Preise aus der home Datenbank holen. */
+                    pricePerNight: home.pricePerNight,
+                    id: home.objectID  /* Die objectID der Unterkunft Objekte speichern für die Verwendung des mouseover highlighter im plugin */
                 }
             })
         }
@@ -66,5 +71,10 @@ export default {
     border-radius: 20px;
     font-weight: bold;
     padding: 5px 8px;
+}
+.marker-highlight {
+    color: white !important;  /* Weil Google Map inline style für die Textfarbe nutzt */
+    background-color: black;
+    border-color: black;
 }
 </style>
