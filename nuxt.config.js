@@ -16,7 +16,8 @@ export default {
     router: {
         prefetchLinks: false
     },
-    plugins:[ "~/plugins/maps.client", "~/plugins/dataApi" ],  /* Weil client in dateinamen steht, weiß Nuxt schon, dass es auf der Client Seite ausgeführt werden soll */
+    plugins: [ "~/plugins/maps.client", "~/plugins/dataApi" ],
+    modules: [ ["~/modules/test", { message: "Hallo aus der nuxt.config!" }] ],  /* Module importieren. Weitere optionen möglich, wie z.b. diese Nachricht aus jedem beliebigemModul abrufen. */
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
@@ -25,5 +26,4 @@ export default {
         // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
     ],
-
 }
