@@ -1,13 +1,13 @@
 <template>
 <div>
     <div><p>Results for: {{ label }}</p></div>
-    <div ref="map" style="height: 800px; width:800px; float: right"></div>  <!-- Map einfügen -->
-    <div v-if="homes.length > 0">  <!-- Wenn Objekte gefunden werden... -->
-    <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">  <!-- Ergebnisse einzeln zu ihren home id's verlinken -->
-        <HomeRow :home="home" />  <!-- ... dann das ausführen, ... -->
+    <div ref="map" style="height: 800px; width:800px; float: right"></div>
+    <div v-if="homes.length > 0">
+    <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">
+        <HomeRow :home="home" />
     </nuxt-link>
     </div>
-    <div v-else>No results found.</div>  <!-- ... ansonsten "No results found" bei keinen Objekten -->
+    <div v-else>No results found.</div>
 </div>
 </template>
 
@@ -46,15 +46,25 @@ export default {
 
     methods: {
         updateMap(){
-            this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())  /* Markerpositionen übergeben */
+            this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())
         },
         getHomeMarkers() {
-            return this.homes.map((home) => {  /* mit JS Funktion Array.map() eine Kopie der home Array erstellen und Funktion auf jedes Element des Arrays anwenden */
+            return this.homes.map((home) => {
                 return {
-                    ...home._geoloc  /* lng & lat durch ...-spread erhalten */
+                    ...home._geoloc,
+                    pricePerNight: home.pricePerNight  /* Für Marker mit Preis label, die Preise aus der home Datenbank holen. */
                 }
             })
         }
     }
 }
 </script>
+<style>
+.marker {
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 5px 8px;
+}
+</style>

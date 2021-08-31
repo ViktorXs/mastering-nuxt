@@ -11,7 +11,7 @@ export default function(context, inject){
 
     function addScript(){
         const script = document.createElement("script")
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB4ghJRsygutKjuNSkwyCy2eigczRKsSL8&libraries=places&callback=initGoogleMaps"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDC5UvrE0Sq-G8hrscjc1dUrfYIlVdSdAs&libraries=places&callback=initGoogleMaps"
         script.async = true
         window.initGoogleMaps = initGoogleMaps
         document.head.appendChild(script)
@@ -44,7 +44,8 @@ export default function(context, inject){
         })
     }
 
-    function showMap(canvas, lat, lng, markers) {  /* markers Parameter für die Markers auf der Karte bei den Suchergebnissen aus der Funktion getHomeMarkers() */        if(!isLoaded) {
+    function showMap(canvas, lat, lng, markers) {
+        if(!isLoaded) {
             waiting.push({
                 fn: showMap,
                 arguments
@@ -59,19 +60,27 @@ export default function(context, inject){
             zoomControl: true
         }
         const map = new window.google.maps.Map(canvas, mapOptions)
-        if(!markers) {  /* Wenn keine markers Parameter, dann Position und einzelnen Marker ausgeben  */
+        if(!markers) {
             const position = new window.google.maps.LatLng(lat, lng)
             const marker = new window.google.maps.Marker({ position })
             marker.setMap(map)
             return
         }
-        const bounds = new window.google.maps.LatLngBounds()  /* Bereich Angeben, welches auf die Marker begrenzt werden soll */
-        markers.forEach((home) => {  /* Marker mit einer anonymen Funktion definieren aus jedem home objekt */
-            const position = new window.google.maps.LatLng(home.lat, home.lng)  /* lat & lng des home Parameters nehmen */
-            const marker = new window.google.maps.Marker({ position })  /* Marker auf position platzieren */
+        const bounds = new window.google.maps.LatLngBounds()
+        
+        markers.forEach((home) => {
+            const position = new window.google.maps.LatLng(home.lat, home.lng)
+            const marker = new window.google.maps.Marker({ 
+                position,
+                label: {                             /* Text in Marker setzen */  
+                    text: `$${home.pricePerNight}`,  /* Das Label mit dem Text / der Nummer (Preis). Mit $ in Nummer konvertiert */
+                    className: "marker"
+                },
+                icon: "https://maps.gstatic.com/mapfiles/transparent.png"   /* Den originalen Marker mit einer transparenten Bilddatei ersetzen */
+            })
             marker.setMap(map)
-            bounds.extend(position)  /* Anhand der lat & lng Positionen den Bereich auf diese Position erweitern */
+            bounds.extend(position)
         })
-        map.fitBounds(bounds)  /* Kartenansicht auf die Grenzen zoomen */
+        map.fitBounds(bounds)
     }
 }
