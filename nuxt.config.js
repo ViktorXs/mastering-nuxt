@@ -17,7 +17,7 @@ export default {
         prefetchLinks: false
     },
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi" ],
-    modules: [ "~/modules/testmodule" ],
+    modules: [],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
