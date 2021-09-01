@@ -17,10 +17,7 @@ export default {
         prefetchLinks: false
     },
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi" ],
-    modules: [  /* Module importieren. Weitere optionen möglich, wie z.b. diese Nachricht aus jedem beliebigemModul abrufen. */
-        ["~/modules/testmodule1", { message1: "Hallo aus der nuxt.config!" }],
-        "~/modules/testmodule2",
-    ],
+    modules: [ "~/modules/testmodule" ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
