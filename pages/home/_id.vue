@@ -1,5 +1,7 @@
 <template>
-<div>
+<div class="app-container">
+    <PropertyGallery :images="home.images" />
+
     <!-- Home Section -->
     <h2>{{ home.title }}</h2>
     <div style="display:flex">
@@ -36,7 +38,7 @@
 
 <script>
 export default {
-    layout: "blue",
+    /* layout: "blue", */
     async asyncData({ params, $dataApi, error }){
         const responses = await Promise.all([
             $dataApi.getHome(params.id),
