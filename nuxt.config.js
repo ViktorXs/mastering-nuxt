@@ -25,6 +25,13 @@ export default {
         // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
 
-        '@nuxtjs/tailwindcss', /* CSS Klassen für ein vereinfachtes Designen */
+        '@nuxtjs/tailwindcss',
     ],
+    css: [ "~/assets/sass/app.scss" ],
+    build: { 
+        extractCSS: true,  /* css je component in separate files sichern */
+        loaders: {
+            imgUrl: { limit: 0 }  /* Base64 codierung abschalten */
+        }
+    }
 }
