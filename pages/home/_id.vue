@@ -1,6 +1,7 @@
 <template>
 <div class="app-container">
     <PropertyGallery :images="home.images" />
+    <PropertyDetails :home="home" />
 
     <!-- Home Section -->
     <h2>{{ home.title }}</h2>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import toPlural from "~/utils/to-plural.js"
+
 export default {
     /* layout: "blue", */
     async asyncData({ params, $dataApi, error }){
@@ -68,18 +71,12 @@ export default {
     },
 
     methods: {
+        toPlural,
         dateTransform(dateStr) {
             const date = new Date(dateStr)
             const options = { weekday: "long", year: "numeric", month: "numeric", day: "2-digit" }
 
             return date.toLocaleDateString("de-De", options)
-        },
-
-        toPlural(number, singular) {
-            const text = `${number} ${singular}`
-            if(number === 1)
-                return text
-            return text + "s"
         }
     }
 }

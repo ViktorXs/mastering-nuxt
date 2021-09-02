@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import toPlural from "~/utils/to-plural.js"
 export default {
     props: {
         home: {
@@ -22,13 +23,7 @@ export default {
     },
 
     methods: {
-        toPlural(number, singular) {
-            const text = `${number} ${singular}`
-            if(number === 1)
-                return text
-
-            return text + "s"
-        }
+        toPlural
     }
 }
 </script>
