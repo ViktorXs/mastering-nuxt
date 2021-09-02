@@ -6,9 +6,9 @@
                 <img src="/images/logo.svg" />
             </div>
             <div class="app-search">
-                <input ref="citySearch" type="text" class="" placeholder="Enter your address" @changed="changed" />  <!-- "@changed" = Custom Event aus maps.client.js. "=changed"-Funktion -->
-                <input type="text" class="" placeholder="Check in" />
-                <input type="text" class="" placeholder="Check out" />
+                <input ref="citySearch" type="text" placeholder="Location" @changed="changed" />  <!-- "@changed" = Custom Event aus maps.client.js. "=changed"-Funktion -->
+                <input type="text" class="datepicker " placeholder="Check out" />
+                <input type="text" class="datepicker " placeholder="Check in" />
                 <button>
                     <img src="/images/icons/search.svg" />
                 </button>
