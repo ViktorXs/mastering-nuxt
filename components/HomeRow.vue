@@ -7,7 +7,8 @@
     {{ home.location.state }}, {{ home.location.country }}</p>
     <p>{{ toPlural(home.guests, "guest") }}, {{ toPlural(home.bedrooms, "room") }}, {{ toPlural(home.beds, "bed") }}, {{ toPlural(home.bathrooms, "bath") }}</p>
     <p>{{ home.pricePerNight }} $ per night</p>
-    <p><img src="/images/star.svg" height="20px" width="20px" /> Review Score: {{ home.reviewValue }} ({{ home.reviewCount }})</p>
+    <img src="/images/star.svg" height="20px" width="20px" />
+    <p>Review Score: {{ home.reviewValue }} ({{ home.reviewCount }})</p>
 </div>
 </template>
 

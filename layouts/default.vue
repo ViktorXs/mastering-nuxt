@@ -1,5 +1,7 @@
 <template>
 <div>
+    <img src="~/assets/test-big.svg" />
+    <img src="~/assets/test-small.svg" />
     <header style="background-color:#ddd">
         <nuxt-link to="/">Home</nuxt-link>
         <input ref="citySearch" type="text" @changed="changed" />

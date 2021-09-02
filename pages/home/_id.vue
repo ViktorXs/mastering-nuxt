@@ -8,7 +8,8 @@
     <p>$<b>{{ home.pricePerNight }}</b> / night</p>
     <p><img src="/images/marker.svg" width="20px" height="20px"/> {{ home.location.address }}, {{ home.location.city }}<br>
     {{ home.location.state }}, {{ home.location.country }}</p>
-    <p><img src="/images/star.svg" width="20px" height="20px" /> Review Score: {{ home.reviewValue }}</p>
+    <img src="/images/star.svg" width="20px" height="20px" />
+    <p>Review Score: {{ home.reviewValue }}</p>
     <p>{{ toPlural(home.guests, "guest") }}</p>
     <p>{{ toPlural(home.bedrooms, "room") }}, {{ toPlural(home.beds, "bed") }} and {{ toPlural(home.bathrooms, "bath") }}.</p>
 
