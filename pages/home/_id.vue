@@ -4,6 +4,7 @@
     <PropertyDetails :home="home" />
     <PropertyDescription :home="home" />
     <PropertyMap :home="home" />
+    <PropertyReviews :reviews="reviews" />
 
     <!-- Home Section -->
     <h2>{{ home.title }}</h2>
