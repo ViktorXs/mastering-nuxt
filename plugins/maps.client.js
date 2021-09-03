@@ -9,9 +9,9 @@ export default function(context, inject){
         doAutoComplete
     })
 
-    function addScript(){
+    function addScript() {
         const script = document.createElement("script")
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDC5UvrE0Sq-G8hrscjc1dUrfYIlVdSdAs&libraries=places&callback=initGoogleMaps"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCzBd_4QXzPA4Vs9yvlObsjBadq_5UL35U&libraries=places&callback=initGoogleMaps"
         script.async = true
         window.initGoogleMaps = initGoogleMaps
         document.head.appendChild(script)
@@ -33,7 +33,6 @@ export default function(context, inject){
             waiting.push({ fn: doAutoComplete, arguments })
             return
         }
-
         const options = {
             types: ["(cities)"]
         }
@@ -72,7 +71,6 @@ export default function(context, inject){
             return
         }
         const bounds = new window.google.maps.LatLngBounds()
-        
         markers.forEach((home) => {
             const position = new window.google.maps.LatLng(home.lat, home.lng)
             const marker = new window.google.maps.Marker({ 
