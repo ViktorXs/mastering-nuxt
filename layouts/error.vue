@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="app-error-page">
     <div style="text-align: center">
         <h1>Oh no, something went wrong!</h1>
         <br>

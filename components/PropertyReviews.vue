@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <button class="app-big-button">Show all Reviews</button>
+        <button class="app-big-button">Show all {{ home.reviewCount }} reviews</button>
     </div>
 </div>
 </template>
@@ -30,6 +30,10 @@ export default {
     props: {
         reviews: {
             type: Array,
+            required: true
+        },
+        home: {
+            type: Object,
             required: true
         }
     },
