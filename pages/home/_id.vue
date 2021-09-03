@@ -3,6 +3,7 @@
     <PropertyGallery :images="home.images" />
     <PropertyDetails :home="home" />
     <PropertyDescription :home="home" />
+    <PropertyMap :home="home" />
 
     <!-- Home Section -->
     <h2>{{ home.title }}</h2>
