@@ -1,13 +1,23 @@
 <template>
 <div>
-    <div><p>Results for: {{ label }}</p></div>
-    <div ref="map" style="height: 800px; width:800px; float: right"></div>
-    <div v-if="homes.length > 0">
-    <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">
-        <HomeRow :home="home" @mouseover.native="highlightMarker(home.objectID, true)" @mouseleave.native="highlightMarker(home.objectID, false)"/>  <!-- mouseover-event triggern an Funktion -->
-    </nuxt-link>
+    <div class="app-search-results-page">
+        <div class="app-search-results">
+            <div class="app-search-results-listing">
+                <div>
+                    <h2 class="app-title">Results for: {{ label }}</h2>
+                </div>
+                <div v-if="homes.length > 0">
+                    <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">
+                        <HomeRow class="app-house" :home="home" @mouseover.native="highlightMarker(home.objectID, true)" @mouseleave.native="highlightMarker(home.objectID, false)"/>  <!-- ... dann HomeRow laden und mouseover event triggern, ... -->
+                    </nuxt-link>
+                </div>
+                <div v-else>No results found.</div>  
+            </div>
+            <div class="app-search-results-map">
+                <div ref="map" class="app-map"></div>
+            </div>
+        </div>
     </div>
-    <div v-else>No results found.</div>
 </div>
 </template>
 
@@ -53,6 +63,8 @@ export default {
             this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())
         },
         getHomeMarkers() {
+            if(this.homes.length === 0 )
+                return null
             return this.homes.map((home) => {
                 return {
                     ...home._geoloc,
