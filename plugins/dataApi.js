@@ -10,7 +10,7 @@ export default function(context, inject){
         getHome,
         getReviewsByHomeId,
         getUserByHomeId,
-        getHomesByLocation
+        getHomesByLocation,
     })
 
     async function getHome(homeId){
@@ -29,7 +29,7 @@ export default function(context, inject){
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
                     hitsPerPage: "6",
-                    attributesToHighlight: []
+                    attributesToHighlight: [],
                 })
             }))
         } catch(error){
@@ -44,7 +44,7 @@ export default function(context, inject){
                 method: "POST",
                 body: JSON.stringify({
                     filters: `homeId:${homeId}`,
-                    attributesToHighlight: []
+                    attributesToHighlight: [],
                 })
             }))
         } catch(error){
@@ -61,7 +61,7 @@ export default function(context, inject){
                     aroundLatLng: `${lat}, ${lng}`,
                     aroundRadius: radiusInMeters,
                     hitsPerPage: 10,
-                    attributesToHighlight: []
+                    attributesToHighlight: [],
                 })
             }))
         } catch(error){
@@ -76,7 +76,7 @@ export default function(context, inject){
             json,
             ok,
             status,
-            statusText
+            statusText,
         }
     }
 
@@ -85,7 +85,7 @@ export default function(context, inject){
             ok: false,
             status: 500,
             statusText: error.message,
-            json: {}
+            json: {},
         }
     }
 }

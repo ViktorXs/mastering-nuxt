@@ -55,9 +55,9 @@ export default {
     },
 
     methods: {         
-        /* highlightMarker(homeId für Selektor & isHighlighted ist ein bool, um die marker-highlight CSS Klasse einzufügen oder zu entfernen */
-        highlightMarker(homeId, isHighlighted) {  /* Code zum Umschalten der CSS Klasse, wenn über ein Objekt gehovert wird */
-            document.getElementsByClassName(`home-${homeId}`)[0]?.classList?.toggle("marker-highlight", isHighlighted)  /* ?. = Anwenden, wenn etwas gefunden wird, ansonsten "undefined". Ersetzt ein if-statement */
+       
+        highlightMarker(homeId, isHighlighted) {
+            document.getElementsByClassName(`home-${homeId}`)[0]?.classList?.toggle("marker-highlight", isHighlighted)
         },
         updateMap(){
             this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())
@@ -69,11 +69,11 @@ export default {
                 return {
                     ...home._geoloc,
                     pricePerNight: home.pricePerNight,
-                    id: home.objectID  /* Die objectID der Unterkunft Objekte speichern für die Verwendung des mouseover highlighter im plugin */
+                    id: home.objectID,
                 }
             })
-        }
-    }
+        },
+    },
 }
 </script>
 <style>
@@ -85,7 +85,7 @@ export default {
     padding: 5px 8px;
 }
 .marker-highlight {
-    color: white !important;  /* Weil Google Map inline style für die Textfarbe nutzt */
+    color: white !important;
     background-color: black;
     border-color: black;
 }

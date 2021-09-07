@@ -29,22 +29,23 @@
 
 <script>
 import toPlural from "~/utils/to-plural.js"
+
 export default {
     props: {
         home: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
 
     computed: {
         features() {
             return this.home.features.slice(0, 3).join(", ")
-        }
+        },
     },
 
     methods: {
-        toPlural
-    }
+        toPlural,
+    },
 }
 </script>

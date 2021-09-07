@@ -30,16 +30,16 @@ export default {
     props: {
         reviews: {
             type: Array,
-            required: true
+            required: true,
         },
         home: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
 
     methods: {
-        dateTransform
-    }
+        dateTransform,
+    },
 }
 </script>

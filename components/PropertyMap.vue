@@ -15,10 +15,10 @@ export default {
         home: {
             type: Object,
             required: true
-        }
+        },
     },
     mounted() {
         this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
-    }
+    },
 }
 </script>

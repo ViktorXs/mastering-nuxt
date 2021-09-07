@@ -21,9 +21,9 @@ export default {
         meta:[{
             name: "description",
             content: "This is my Homepage!",
-            hid: "description"
-        }]
+            hid: "description",
+        }],
         }
-    }
+    },
 }
 </script>

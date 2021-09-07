@@ -25,8 +25,12 @@
 </template>
 <script>
 export default {
+    created() {
+        console.log("created", this.$config.test1, this.$config.test2, this.$config.test3)  /* Konfiguration aus privateRuntimeConfig aus nuxt.config.js überschreibt gleichnamige Konfiguration aus privateRuntimeConfig */
+    },
+
     mounted() {
-        this.$maps.doAutoComplete(this.$refs.citySearch);
+        this.$maps.doAutoComplete(this.$refs.citySearch)
     },
     
     methods: {
@@ -40,10 +44,10 @@ export default {
                 query: {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
-                    label: this.$refs.citySearch.value
-                }
+                    label: this.$refs.citySearch.value,
+                },
             })
-        }
-    }
+        },
+    },
 }
 </script>

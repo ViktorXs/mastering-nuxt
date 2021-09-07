@@ -6,7 +6,7 @@ export default function(context, inject){
     addScript()
     inject("maps", {
         showMap,
-        doAutoComplete
+        doAutoComplete,
     })
 
     function addScript() {
@@ -47,7 +47,7 @@ export default function(context, inject){
         if(!isLoaded) {
             waiting.push({
                 fn: showMap,
-                arguments
+                arguments,
             })
             return
         }
@@ -60,7 +60,7 @@ export default function(context, inject){
             styles: [{
                 featureType: "poi.business",
                 elementType: "labels.icon",
-                stylers: [{ visibility: "off" }]
+                stylers: [{ visibility: "off" }],
             }]
         }
         const map = new window.google.maps.Map(canvas, mapOptions)
@@ -77,7 +77,7 @@ export default function(context, inject){
                 position,
                 label: {                                 /* Text in Marker setzen */  
                     text: `$${home.pricePerNight}`,      /* Das Label mit dem Text / der Nummer (Preis). Mit $ in Nummer konvertiert */
-                    className: `marker home-${home.id}`  /* Der CSS Klasse die ID aus der getHomeMarkers() Funktion aus search.vue übergeben */
+                    className: `marker home-${home.id}`, /* Der CSS Klasse die ID aus der getHomeMarkers() Funktion aus search.vue übergeben */
                 },
                 icon: "https://maps.gstatic.com/mapfiles/transparent.png"  /* Den originalen Marker mit einer transparenten Bilddatei ersetzen */
             })

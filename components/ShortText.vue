@@ -11,18 +11,18 @@ export default {
     props: {
         text: {
             type: String,
-            required: true
+            required: true,
         },
         target: {
             type: Number,
-            required: true
-        }
+            required: true,
+        },
     },
 
     data() {
         return {
             isExpanded: false,
-            chunks: []
+            chunks: [],
         }
     },
 
@@ -35,7 +35,7 @@ export default {
                 return this.chunks.join(" ")
             
             return this.chunks[0] + " ..."
-        }
+        },
     },
 
     created() {
@@ -50,8 +50,8 @@ export default {
                 return [this.text]
 
             return [this.text.substring(0, position), this.text.substring(position)]
-        }
-    }
+        },
+    },
 }
 </script>
 <style scoped>

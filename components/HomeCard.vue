@@ -17,12 +17,12 @@ export default {
     props: {
         home: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
 
     methods: {
-        toPlural
-    }
+        toPlural,
+    },
 }
 </script>
