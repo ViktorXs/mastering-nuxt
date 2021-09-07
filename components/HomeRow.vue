@@ -1,14 +1,29 @@
 <template>
-<div style="clear:left">
-    <img :src="home.images[0]" style="width:200px; float:Left; padding: 10px"><br>
-    <h3>{{ home.title }}</h3>
-    <p>{{ home.location.address }},
-    {{ home.location.city }},
-    {{ home.location.state }}, {{ home.location.country }}</p>
-    <p>{{ toPlural(home.guests, "guest") }}, {{ toPlural(home.bedrooms, "room") }}, {{ toPlural(home.beds, "bed") }}, {{ toPlural(home.bathrooms, "bath") }}</p>
-    <p>{{ home.pricePerNight }} $ per night</p>
-    <img src="/images/star.svg" height="20px" width="20px" />
-    <p>Review Score: {{ home.reviewValue }} ({{ home.reviewCount }})</p>
+<div>
+    <div class="app-house-header" :style="`background-image: url(${home.images[0]})`">
+    </div>
+    <div class="app-house-body">
+        <img src="/images/icons/heart.svg" class="app-fav"/>
+        <h2 class="app-title">{{ home.title }}</h2>
+        <div class="app-address">
+            {{ home.location.address }},
+            {{ home.location.city }},
+            {{ home.location.state }}, {{ home.location.country }}
+        </div>
+        <div class="app-amenities">
+            <p>{{ toPlural(home.guests, "guest") }}, {{ toPlural(home.bedrooms, "room") }}, {{ toPlural(home.beds, "bed" ) }}, {{ toPlural(home.bathrooms, "bath") }}</p>
+            <p><strong>Features:</strong> {{ features }}</p>
+        </div>
+        <div class="app-flex">
+            <div class="app-rating">
+                {{ home.reviewValue }}
+                <span>({{ home.reviewCount }})</span>
+            </div>
+            <div class="app-price">
+                ${{ home.pricePerNight }}<span> / night</span>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -19,6 +34,12 @@ export default {
         home: {
             type: Object,
             required: true
+        }
+    },
+
+    computed: {
+        features() {
+            return this.home.features.slice(0, 3).join(", ")
         }
     },
 
