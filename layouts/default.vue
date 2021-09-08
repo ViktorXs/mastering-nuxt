@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-    <button @click="test">test</button>
+    <button @click="counter">Count!</button>
     <header class="app-header">
         <div class="app-logo">
             <nuxt-link to="/">
@@ -31,8 +31,8 @@ export default {
     },
     
     methods: {
-        test() {
-            this.$store.dispatch("auth/counterUp")
+        counter() {
+            this.$store.dispatch("counter/counterUp")
         },
 
         changed(event) {

@@ -1,5 +1,5 @@
 export default {
-    myGetter(state) {
+    countGetter(state) {
         return state.counter + 1000
     }
 }
