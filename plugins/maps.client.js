@@ -1,4 +1,5 @@
 export default function(context, inject){
+    window.initGoogleMaps = init   /* kein initGoogleMaps notwendig, weil lokal sollte reichen */
 
     let isLoaded = false
     let waiting = []
@@ -13,11 +14,10 @@ export default function(context, inject){
         const script = document.createElement("script")
         script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBQXyBIx6DtYRtgkzGTcbyu1STg2XPOQgQ&libraries=places&callback=initGoogleMaps"
         script.async = true
-        window.initGoogleMaps = initGoogleMaps
         document.head.appendChild(script)
     }
 
-    function initGoogleMaps() {
+    function init() {  /* ursprünglich Global initGoogleMaps() */
         isLoaded = true
 
         waiting.forEach((item) => {

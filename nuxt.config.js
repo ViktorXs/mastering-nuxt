@@ -17,7 +17,7 @@ export default {
         prefetchLinks: false,
     },
 
-    plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", ],
+    plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", "~/plugins/auth.client", ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
@@ -41,7 +41,7 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientID: "404691488375-9peld4jjtcnqmktsm6orlv3b620l0tqh.apps.googleusercontent.com",
+            clientId: "404691488375-9peld4jjtcnqmktsm6orlv3b620l0tqh.apps.googleusercontent.com",
         },
     },
 

@@ -4,7 +4,7 @@
         <div class="app-search-results">
             <div class="app-search-results-listing">
                 <div>
-                    <h2 class="app-title">Results for: {{ label }}</h2>
+                    <h2 class="app-title">{{ label }}</h2>
                 </div>
                 <div v-if="homes.length > 0">
                     <nuxt-link v-for="home in homes" :key="home.ObjectID" :to="`/home/${home.objectID}`">
