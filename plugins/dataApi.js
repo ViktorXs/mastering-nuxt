@@ -3,7 +3,7 @@ export default function(context, inject){
     const apiKey = "b59bf0690de2a7650fe53e9d49e01eb2"
     const headers = {
         "X-Algolia-Application-Id": appId,
-        "X-Algolia-API-Key": apiKey
+        "X-Algolia-API-Key": apiKey,
     }
 
     inject("dataApi", {
