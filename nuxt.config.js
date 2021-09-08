@@ -39,6 +39,10 @@ export default {
     },
 
     publicRuntimeConfig: {
+        auth: {
+            cookieName: "idToken",
+            clientID: "404691488375-9peld4jjtcnqmktsm6orlv3b620l0tqh.apps.googleusercontent.com",
+        },
     },
 
     privateRuntimeConfig: {

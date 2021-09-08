@@ -1,6 +1,5 @@
 <template>
 <div class="app-container">
-    <button @click="counter">Count!</button>
     <header class="app-header">
         <div class="app-logo">
             <nuxt-link to="/">
@@ -31,10 +30,6 @@ export default {
     },
     
     methods: {
-        counter() {
-            this.$store.dispatch("counter/counterUp")
-        },
-
         changed(event) {
             const place = event.detail
             if(!place.geometry)
