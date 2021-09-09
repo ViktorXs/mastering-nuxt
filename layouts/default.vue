@@ -18,7 +18,7 @@
             <img src="/images/icons/house.svg" />
             <div class="name">Host</div>
             <!-- <img src="/images/user.jpg" class="avatar" /> -->
-            <div id="googleButton"></div>
+            <div id="googleButton" style="padding-left: 15px"></div>
         </div>
     </header>
     <nuxt />
