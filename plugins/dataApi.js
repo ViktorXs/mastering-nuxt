@@ -1,4 +1,4 @@
-export default function(context, inject){
+export default function(context, inject) {
     const appId = "9P5ZZJ0U0N"
     const apiKey = "b59bf0690de2a7650fe53e9d49e01eb2"
     const headers = {
@@ -13,7 +13,7 @@ export default function(context, inject){
         getHomesByLocation,
     })
 
-    async function getHome(homeId){
+    async function getHome(homeId) {
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers }))
         } catch(error){
@@ -21,7 +21,7 @@ export default function(context, inject){
         }
     }
 
-    async function getReviewsByHomeId(homeId){
+    async function getReviewsByHomeId(homeId) {
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/query`, { 
                 headers,
@@ -37,7 +37,7 @@ export default function(context, inject){
         }
     }
 
-    async function getUserByHomeId(homeId){
+    async function getUserByHomeId(homeId) {
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/users/query`, { 
                 headers,
@@ -52,7 +52,7 @@ export default function(context, inject){
         }
     }
 
-    async function getHomesByLocation(lat, lng, radiusInMeters = 1500){
+    async function getHomesByLocation(lat, lng, radiusInMeters = 1500) {
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/query`, { 
                 headers,
@@ -69,7 +69,7 @@ export default function(context, inject){
         }
     }
 
-    async function unWrap(response){
+    async function unWrap(response) {
         const json = await response.json()
         const { ok, status, statusText } = response
         return {
@@ -80,7 +80,7 @@ export default function(context, inject){
         }
     }
 
-    function getErrorResponse(error){
+    function getErrorResponse(error) {
         return{
             ok: false,
             status: 500,

@@ -1,4 +1,4 @@
-export default function(context, inject){
+export default function(context, inject) {
     window.initGoogleMaps = init   /* kein initGoogleMaps notwendig, weil lokal sollte reichen */
 
     let isLoaded = false
