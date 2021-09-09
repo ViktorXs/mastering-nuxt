@@ -1,6 +1,6 @@
 import Cookie from "js-cookie"
 
-export default ({ $config }, inject) => {
+export default ({ $config, store }, inject) => {  /* store einfügen */
     window.initAuth = init
     addScript()
 
@@ -20,28 +20,32 @@ export default ({ $config }, inject) => {
             const auth2 = await window.gapi.auth2.init({
                 client_id: $config.auth.clientId
             })
-            auth2.currentUser.listen(parseUser)  /* Gibt einen "GoogleUser" zurück, welcher den aktuellen User darstellt */
+            auth2.currentUser.listen(parseUser)
         })
         window.gapi.signin2.render("googleButton", {
-            onsuccess: parseUser,  /* bei erfolgreicher Anmeldung, Funktion ausführen */
+            onsuccess: parseUser,
         })
     }
 
     function parseUser(user) {
         const profile = user.getBasicProfile()
-        console.log("Name: " + profile.getName())
-        console.log("Image: " + profile.getImageUrl())
+        /* console.log("Name: " + profile.getName()) */
+        /* console.log("Image: " + profile.getImageUrl()) */
 
-        if(!user.isSignedIn()) {  /* Cookie entfernen, wenn nicht eingeloggt */
+        if(!user.isSignedIn()) {
             Cookie.remove($config.auth.cookieName)
+            store.commit("auth/user", null)  /* Benutzerinformationen auf null setzen, wenn nicht eingeloggt */
             return
         }
-
-        const idToken = user.getAuthResponse().id_token  /* Token speichern */
-        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })  /* Token in Cookie ablegen für 1 stunde */
+        store.commit("auth/user", {  /* Benutzerinformationen an store übergeben, wenn eingeloggt */
+            fullName: profile.getName(),
+            profileUrl: profile.getImageUrl(),
+        })
+        const idToken = user.getAuthResponse().id_token
+        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })
     }
 
-    function signOut() {  /* googles signOut Funktion loggt den user aus, wenn dieser die Seite verlässt */
+    function signOut() {
         const auth2 = window.gapi.auth2.getAuthInstance()
         auth2.signOut()
     }
