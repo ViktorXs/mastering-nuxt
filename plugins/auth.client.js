@@ -1,5 +1,7 @@
-export default ({ $config }) => {  /* "destructure config" um die clientID aus nuxt.config zu verwenden */
-    window.initAuth = init   /* kein initAuth, weil lokal sollte reichen */
+import Cookie from "js-cookie"
+
+export default ({ $config }) => {
+    window.initAuth = init
     addScript()
 
     function addScript() {
@@ -10,20 +12,23 @@ export default ({ $config }) => {  /* "destructure config" um die clientID aus n
     }
 
     function init() {
-        window.gapi.load('auth2', async function() { /* Weil gapi global ist, muss window davor. */
-            const auth2 = await window.gapi.auth2.init({  /* GoogleAuth initialisieren */
-                client_id: $config.auth.clientId  /* mit der Id aus der nuxt config */
+        window.gapi.load('auth2', async function() {
+            const auth2 = await window.gapi.auth2.init({
+                client_id: $config.auth.clientId
             })
             auth2.currentUser.listen(parseUser)  /* Gibt einen "GoogleUser" zurück, welcher den aktuellen User darstellt */
         })
-        window.gapi.signin2.render("googleButton", {  /* Sign-In Button für die Id in der <div id:"googleButton"> */
-            onsuccess: parseUser,  /* Enthält Informationen über den User, der sich angemeldet hat */
+        window.gapi.signin2.render("googleButton", {
+            onsuccess: parseUser,  /* bei erfolgreicher Anmeldung, Funktion ausführen */
         })
     }
 
-    function parseUser(user) {  /* Standardinformationen des Users abrufen */
+    function parseUser(user) {
         const profile = user.getBasicProfile()
         console.log("Name: " + profile.getName())
         console.log("Image: " + profile.getImageUrl())
+        
+        const idToken = user.getAuthResponse().id_token  /* Token speichern */
+        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })  /* Token in Cookie ablegen für 1 stunde */
     }
 }
