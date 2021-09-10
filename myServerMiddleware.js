@@ -1,7 +1,10 @@
 export default (req, res, next) => {
-    console.log(req.url)  /* Bei jedem Aufruf der Seite url in der Serverkonsole anzeigen */
-    res.statusCode = 404
-    res.statusMessage = "Nothing found!"
-    res.end()  /* Response muss beendet werden um es zu versenden */
+    if(req.url === "/oldpage") {  /* wenn page url nicht "/oldpage" ist... */
+        console.log(req.url)  /* Bei jedem Aufruf der Seite url in der Serverkonsole anzeigen */
+        res.statusCode = 302
+        res.setHeader("location", "/newpage")  /* ... dann redirect zu "/newpage". So funktioniert das weiterleiten / redirect */
+        res.end()
+        return  /* Falls next() nicht ausgeführt werden soll */
+    }
     next()  /* next() ist notwendig, sonst hängt sich der Request in Node auf */
 }
