@@ -1,5 +1,5 @@
 export default function(context, inject) {
-    window.initGoogleMaps = init   /* kein initGoogleMaps notwendig, weil lokal sollte reichen */
+    window.initGoogleMaps = init
 
     let isLoaded = false
     let waiting = []
@@ -12,12 +12,12 @@ export default function(context, inject) {
 
     function addScript() {
         const script = document.createElement("script")
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXigpbkDAdXn06gk01CGM2gpJIMXR9ZcM&libraries=places&callback=initGoogleMaps"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9fkBJPCH_O1gKTR7wHhV9tt_BhhR2B7g&libraries=places&callback=initGoogleMaps"
         script.async = true
         document.head.appendChild(script)
     }
 
-    function init() {  /* ursprünglich Global initGoogleMaps() */
+    function init() {
         isLoaded = true
 
         waiting.forEach((item) => {
@@ -75,11 +75,11 @@ export default function(context, inject) {
             const position = new window.google.maps.LatLng(home.lat, home.lng)
             const marker = new window.google.maps.Marker({ 
                 position,
-                label: {                                 /* Text in Marker setzen */  
-                    text: `$${home.pricePerNight}`,      /* Das Label mit dem Text / der Nummer (Preis). Mit $ in Nummer konvertiert */
-                    className: `marker home-${home.id}`, /* Der CSS Klasse die ID aus der getHomeMarkers() Funktion aus search.vue übergeben */
+                label: {
+                    text: `$${home.pricePerNight}`,
+                    className: `marker home-${home.id}`,
                 },
-                icon: "https://maps.gstatic.com/mapfiles/transparent.png"  /* Den originalen Marker mit einer transparenten Bilddatei ersetzen */
+                icon: "https://maps.gstatic.com/mapfiles/transparent.png"
             })
             marker.setMap(map)
             bounds.extend(position)

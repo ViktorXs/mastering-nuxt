@@ -1,6 +1,6 @@
 import Cookie from "js-cookie"
 
-export default ({ $config, store }, inject) => {  /* store einfügen */
+export default ({ $config, store }, inject) => {
     window.initAuth = init
     addScript()
 
@@ -34,10 +34,10 @@ export default ({ $config, store }, inject) => {  /* store einfügen */
 
         if(!user.isSignedIn()) {
             Cookie.remove($config.auth.cookieName)
-            store.commit("auth/user", null)  /* Benutzerinformationen auf null setzen, wenn nicht eingeloggt */
+            store.commit("auth/user", null)
             return
         }
-        store.commit("auth/user", {  /* Benutzerinformationen an store übergeben, wenn eingeloggt */
+        store.commit("auth/user", {
             fullName: profile.getName(),
             profileUrl: profile.getImageUrl(),
         })

@@ -29,10 +29,10 @@
 <script>
 export default {
     computed: {
-        user() {  /* aus dem Store übergeben, ob angemeldet oder nicht */
+        user() {
             return this.$store.state.auth.user
         },
-        isLoggedIn() {  /* aus dem Store übergeben, ob angemeldet oder nicht */
+        isLoggedIn() {
             return this.$store.state.auth.isLoggedIn
         },
     },
