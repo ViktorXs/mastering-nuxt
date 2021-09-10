@@ -19,6 +19,8 @@ export default {
 
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", "~/plugins/auth.client", ],
 
+    /* modules: [ "~/modules/auth", ], */
+
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
         // https://go.nuxtjs.dev/eslint
@@ -46,7 +48,5 @@ export default {
     },
 
     privateRuntimeConfig: {
-    },
-    
-    serverMiddleware: [ "myServerMiddleware" ],
+    },    
 }
