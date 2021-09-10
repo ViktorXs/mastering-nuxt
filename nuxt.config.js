@@ -47,4 +47,6 @@ export default {
 
     privateRuntimeConfig: {
     },
+    
+    serverMiddleware: [ "myServerMiddleware" ],
 }
