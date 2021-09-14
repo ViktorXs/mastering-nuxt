@@ -19,7 +19,7 @@ export default {
 
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", "~/plugins/auth.client", ],
 
-    /* modules: [ "~/modules/auth", ], */
+    modules: [ "~/modules/auth", ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
