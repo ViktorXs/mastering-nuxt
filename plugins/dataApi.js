@@ -1,9 +1,9 @@
-export default function(context, inject) {
-    const appId = "9P5ZZJ0U0N"
-    const apiKey = "b59bf0690de2a7650fe53e9d49e01eb2"
+export default function({ $config }, inject) {  /* statt "context" auf nuxt.config zugreifen */
+    const apiKey = $config.algolia.apiKey  /* Keys in nuxt.config ausgelagert */
+    const appId = $config.algolia.appId  /* Keys in nuxt.config ausgelagert */
     const headers = {
-        "X-Algolia-Application-Id": appId,
         "X-Algolia-API-Key": apiKey,
+        "X-Algolia-Application-Id": appId,
     }
 
     inject("dataApi", {
