@@ -6,7 +6,7 @@ export default {
             lang: "en",
         },
         bodyAttrs: {
-            class: ["my-style"],
+            class: [ "my-style" ],
         },
         meta: [{
           charset: "utf-8",

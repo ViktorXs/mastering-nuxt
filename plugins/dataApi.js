@@ -18,7 +18,7 @@ export default function({ $config }, inject) {  /* statt "context" auf nuxt.conf
     async function getHome(homeId) {
         try{
             return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers }))
-        } catch(error){
+        } catch(error) {
             return getErrorResponse(error)
         }
     }
@@ -34,7 +34,7 @@ export default function({ $config }, inject) {  /* statt "context" auf nuxt.conf
                     attributesToHighlight: [],
                 })
             }))
-        } catch(error){
+        } catch(error) {
             return getErrorResponse(error)
         }
     }
@@ -49,7 +49,7 @@ export default function({ $config }, inject) {  /* statt "context" auf nuxt.conf
                     attributesToHighlight: [],
                 })
             }))
-        } catch(error){
+        } catch(error) {
             return getErrorResponse(error)
         }
     }
@@ -66,7 +66,7 @@ export default function({ $config }, inject) {  /* statt "context" auf nuxt.conf
                     attributesToHighlight: [],
                 })
             }))
-        } catch(error){
+        } catch(error) {
             return getErrorResponse(error)
         }
     }
