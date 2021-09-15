@@ -1,3 +1,5 @@
+import { unWrap, getErrorResponse } from "~/utils/fetchUtils"  /* unWrap und getErrorResponse in utils verlegt */
+
 export default function({ $config }, inject) {  /* statt "context" auf nuxt.config zugreifen */
     const apiKey = $config.algolia.apiKey  /* Keys in nuxt.config ausgelagert */
     const appId = $config.algolia.appId  /* Keys in nuxt.config ausgelagert */
@@ -66,26 +68,6 @@ export default function({ $config }, inject) {  /* statt "context" auf nuxt.conf
             }))
         } catch(error){
             return getErrorResponse(error)
-        }
-    }
-
-    async function unWrap(response) {
-        const json = await response.json()
-        const { ok, status, statusText } = response
-        return {
-            json,
-            ok,
-            status,
-            statusText,
-        }
-    }
-
-    function getErrorResponse(error) {
-        return{
-            ok: false,
-            status: 500,
-            statusText: error.message,
-            json: {},
         }
     }
 }
