@@ -1,8 +1,8 @@
-import fetch from "node-fetch"  /*  Um mit Algolia zu kommunizieren */
-import { unWrap, getErrorResponse } from "../utils/fetchUtils"  /* Statt "~/" ist "../" notwendig, weil module über node laufen */
+import fetch from "node-fetch"
+import { unWrap, getErrorResponse } from "../utils/fetchUtils"
 
 export default function() {
-    const algoliaConfig = this.options.privateRuntimeConfig.algolia   /* Vom Modul zu nuxt.config mit this.options, statt $config */
+    const algoliaConfig = this.options.privateRuntimeConfig.algolia
     
     const headers = {
         "X-Algolia-API-Key": algoliaConfig.apiKey,
@@ -13,7 +13,7 @@ export default function() {
         app.use("/api/user", getUserRoute)
     })
 
-    async function getUserRoute(req, res, next) {  /* Prüfen, ob der User schon in Algolia existiert, ansonsten neuen erstellen und ausgeben */
+    async function getUserRoute(req, res, next) {
         const identity = req.identity
         const userData = await getUserById(identity)
         
@@ -21,15 +21,16 @@ export default function() {
             sendJSON(userData.json, res)
             return
         }
-        createUser(req.identity)  /* Durch Google angemeldeten User in Algolia erstellen/eintragen */
+        
+        createUser(req.identity)
         sendJSON(makeUserPayload(identity), res)
     }
 
-    async function createUser(identity) {  /* Einen Benutzer in der Algolia Datenbank erstellen  */
+    async function createUser(identity) {
         try{
             return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/users/${identity.id}`, { 
                 headers,
-                method: "PUT",  /* Statt POST, PUT um Benutzer zu erstellen */
+                method: "PUT",
                 body: JSON.stringify(makeUserPayload(identity))
             }))
         } catch(error) {
@@ -39,7 +40,7 @@ export default function() {
 
     async function getUserById(userId) {
         try{
-            return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/users/${identity.id}`, {
+            return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/users/${identity.id}`, {  /* identity wird nirgends definiert */
                 headers,
             }))
         } catch(error) {
@@ -47,12 +48,12 @@ export default function() {
         }
     }
 
-    function sendJSON(data, res) {  /* "Helper"-Funktion. Die korrekten headers an API Response einfügen und die Daten senden */
-        res.setHeader("Content-Type", "application/json")  /* setHeader vom res Objekt. Es nimmt einen Key und einen Wert */
-        res.end(JSON.stringify(data))  /* Schließt das res object ab und sendet es */ /* Erinnerung: JSON datenbank muss mit stringify umgewandelt werden */
+    function sendJSON(data, res) {
+        res.setHeader("Content-Type", "application/json")
+        res.end(JSON.stringify(data))
     }
 
-    function makeUserPayload(identity) {  /*  Konstruiert das Objekt, was an Algolia gesendet wird */
+    function makeUserPayload(identity) {
         return {
             name: identity.name,
             email: identity.email,

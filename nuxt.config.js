@@ -41,16 +41,16 @@ export default {
             cookieName: "idToken",
             clientId: "404691488375-9peld4jjtcnqmktsm6orlv3b620l0tqh.apps.googleusercontent.com",
         },
-        algolia: {  /* Algolia rechte für nur Leserechte über das auth.js Modul mit identity */
+        algolia: {
             appId: "9P5ZZJ0U0N",
             apiKey: "b59bf0690de2a7650fe53e9d49e01eb2",
         },
     },
 
     privateRuntimeConfig: {
-        algolia: {  /* Algolia rechte für Lese- / Schreibrechte über das auth.js Modul mit identity */
+        algolia: {
             appId: "9P5ZZJ0U0N",
-            apiKey: "ab13dd67e694b693b4e7518328d47f97",  /* Aus Sicherheitsgründen wird der Key nach Feierabend aus Algolia gelöscht und ein Neuer mit addObject-Recht am nächsten Tag generiert. */
+            apiKey: "91fcb0f8b26a5178c14b48494f7da910",  /* Täglich regeneriert */
         },
     },    
 }

@@ -1,8 +1,8 @@
-import { unWrap, getErrorResponse } from "~/utils/fetchUtils"  /* unWrap und getErrorResponse in utils verlegt */
+import { unWrap, getErrorResponse } from "~/utils/fetchUtils"
 
-export default function({ $config }, inject) {  /* statt "context" auf nuxt.config zugreifen */
-    const apiKey = $config.algolia.apiKey  /* Keys in nuxt.config ausgelagert */
-    const appId = $config.algolia.appId  /* Keys in nuxt.config ausgelagert */
+export default function({ $config }, inject) {
+    const apiKey = $config.algolia.apiKey
+    const appId = $config.algolia.appId
     const headers = {
         "X-Algolia-API-Key": apiKey,
         "X-Algolia-Application-Id": appId,

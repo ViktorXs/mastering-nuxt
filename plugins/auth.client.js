@@ -1,4 +1,5 @@
 import Cookie from "js-cookie"
+import { unWrap } from "~/utils/fetchUtils"
 
 export default ({ $config, store }, inject) => {
     window.initAuth = init
@@ -27,22 +28,29 @@ export default ({ $config, store }, inject) => {
         })
     }
 
-    function parseUser(user) {
-        const profile = user.getBasicProfile()
-        /* console.log("Name: " + profile.getName()) */
-        /* console.log("Image: " + profile.getImageUrl()) */
-
+    async function parseUser(user) {
+        /* const profile = user.getBasicProfile() */  /* Nicht notwendig */
+        
         if(!user.isSignedIn()) {
             Cookie.remove($config.auth.cookieName)
             store.commit("auth/user", null)
             return
         }
-        store.commit("auth/user", {
-            fullName: profile.getName(),
-            profileUrl: profile.getImageUrl(),
-        })
-        const idToken = user.getAuthResponse().id_token
-        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })
+
+        const idToken = user.getAuthResponse().id_token  /* über store.commit verschoben, damit der Token Zuerst geladen wird. */
+        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })  /* über store.commit verschoben, damit der Token Zuerst geladen wird. */
+
+        try{
+            const response = await unWrap(await fetch("/api/user"))  /* Wenn call auf Link, abfangen und... */
+            const user = response.json  /* ... als response als json Datenbank speichern. */
+
+            store.commit("auth/user", {
+                fullName: user.name,  /* profile.getName() ersetzt */
+                profileUrl: user.image,  /* profile.getImageUrl() ersetzt */
+            })
+        } catch(error) {
+            console.error(error)
+        }
     }
 
     function signOut() {
