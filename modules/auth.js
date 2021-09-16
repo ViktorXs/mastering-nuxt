@@ -6,7 +6,14 @@ export default function() {
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
         app.use("/api", handler)
-    })    
+    })
+    
+    this.nuxt.hook("render:setupMiddleware", (app) => {
+        app.use("/admin", (req, res, next) => {
+            res.spa = true
+            next()
+        })
+    })
 
     async function handler(req, res, next) {
         const idToken = cookie.parse(req.headers.cookie) [authConfig.cookieName]
