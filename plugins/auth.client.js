@@ -29,7 +29,6 @@ export default ({ $config, store }, inject) => {
     }
 
     async function parseUser(user) {
-        /* const profile = user.getBasicProfile() */  /* Nicht notwendig */
         
         if(!user.isSignedIn()) {
             Cookie.remove($config.auth.cookieName)
@@ -37,16 +36,16 @@ export default ({ $config, store }, inject) => {
             return
         }
 
-        const idToken = user.getAuthResponse().id_token  /* über store.commit verschoben, damit der Token Zuerst geladen wird. */
-        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })  /* über store.commit verschoben, damit der Token Zuerst geladen wird. */
+        const idToken = user.getAuthResponse().id_token
+        Cookie.set($config.auth.cookieName, idToken, { expires: 1/24, sameSite: "Lax" })
 
         try{
-            const response = await unWrap(await fetch("/api/user"))  /* Wenn call auf Link, abfangen und... */
-            const user = response.json  /* ... als response als json Datenbank speichern. */
+            const response = await unWrap(await fetch("/api/user"))
+            const user = response.json
 
             store.commit("auth/user", {
-                fullName: user.name,  /* profile.getName() ersetzt */
-                profileUrl: user.image,  /* profile.getImageUrl() ersetzt */
+                fullName: user.name,
+                profileUrl: user.image,
             })
         } catch(error) {
             console.error(error)
