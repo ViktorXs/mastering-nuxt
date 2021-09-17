@@ -9,7 +9,7 @@ export default function() {
     /* const headers = {} */
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
-        app.use("/api/user", userRouter(headers))
+        app.use("/api/user", userRouter(headers))  /* Weil getUserRoute in user.js verschoben, zu userRouter(headers) mit headers parameter verknüpft */
     })
 
 /* Ausgelagert in user.js */
