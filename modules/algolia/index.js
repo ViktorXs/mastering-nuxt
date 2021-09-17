@@ -1,13 +1,10 @@
 import fetch from "node-fetch"
-import { unWrap, getErrorResponse } from "../utils/fetchUtils"
+import { unWrap, getErrorResponse } from "../../utils/fetchUtils"
+import { getHeaders, sendJSON } from "./helpers"  /* Const headers & function sendJSON ausgelagert */
 
 export default function() {
     const algoliaConfig = this.options.privateRuntimeConfig.algolia
-    
-    const headers = {
-        "X-Algolia-API-Key": algoliaConfig.apiKey,
-        "X-Algolia-Application-Id": algoliaConfig.appId,
-    }
+    const headers = getHeaders(algoliaConfig)
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
         app.use("/api/user", getUserRoute)
@@ -46,11 +43,6 @@ export default function() {
         } catch(error) {
             return getErrorResponse(error)
         }
-    }
-
-    function sendJSON(data, res) {
-        res.setHeader("Content-Type", "application/json")
-        res.end(JSON.stringify(data))
     }
 
     function makeUserPayload(identity) {
