@@ -12,7 +12,7 @@ export default function(context, inject) {
 
     function addScript() {
         const script = document.createElement("script")
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBOimkiakVeAzZ2YVGLszeJ9h6sDn9yfKE&libraries=places&callback=initGoogleMaps"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDCmypOZ_KH96kKLezAh1f502eOlKeZi4g&libraries=places&callback=initGoogleMaps"
         script.async = true
         document.head.appendChild(script)
     }

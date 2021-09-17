@@ -39,7 +39,7 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientId: "404691488375-9peld4jjtcnqmktsm6orlv3b620l0tqh.apps.googleusercontent.com",
+            clientId: "404691488375-8h9fce7p4aicttfssgpiadmene1ujsao.apps.googleusercontent.com",  /* Täglich regeneriert */
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
