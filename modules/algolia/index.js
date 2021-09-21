@@ -1,25 +1,16 @@
-import { getHeaders } from "./helpers"
+/* import { getHeaders } from "./helpers" */
+import getApis from "./apis"
 import userRouter from "./routers/user"
 
 export default function() {
     const algoliaConfig = this.options.privateRuntimeConfig.algolia
-    const headers = getHeaders(algoliaConfig)  /* headers aus helpers modulkomponente einfügen */
-
+    const apis = getApis(algoliaConfig)
+    /* const headers = getHeaders(algoliaConfig) */  /* headers aus helpers modulkomponente einfügen */
 /* Ausgelagert in helpers.js */
     /* const headers = {} */
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
-        app.use("/api/user", userRouter(headers))  /* Weil getUserRoute in user.js verschoben, zu userRouter(headers) mit headers parameter verknüpft */
+        app.use("/api/user", userRouter(apis))  /* Statt headers, apis */  /* Weil getUserRoute in user.js verschoben, zu userRouter(headers) mit headers parameter verknüpft */
     })
 
-/* Ausgelagert in user.js */
-    /* async function getUserRoute(req, res, next) {...} */
-    /* async function createUser(identity) {...} */
-    /* async function getUserById(identity) {...} */
-
-/* Ausgelagert in helpers.js */
-    /* function sendJSON(data, res) {...} */
-
-/* Ausgelagert in user.js */
-    /* function makeUserPayload(identity) {...} */
 }

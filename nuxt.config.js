@@ -39,7 +39,7 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientId: "404691488375-8h9fce7p4aicttfssgpiadmene1ujsao.apps.googleusercontent.com",  /* Täglich regeneriert */
+            clientId: "404691488375-sgj1ldirma6ppav79p3ibtvac1ll950a.apps.googleusercontent.com",  /* Täglich regeneriert */
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
@@ -50,7 +50,7 @@ export default {
     privateRuntimeConfig: {
         algolia: {
             appId: "9P5ZZJ0U0N",
-            apiKey: "91fcb0f8b26a5178c14b48494f7da910",  /* Täglich regeneriert */
+            apiKey: "56b9178c5455d27eebe63f9db9029691",  /* Täglich regeneriert */
         },
     },    
 }
