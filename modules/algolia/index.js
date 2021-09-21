@@ -1,16 +1,13 @@
-/* import { getHeaders } from "./helpers" */
+import bodyParser from "body-parser"
 import getApis from "./apis"
 import userRouter from "./routers/user"
 
 export default function() {
     const algoliaConfig = this.options.privateRuntimeConfig.algolia
     const apis = getApis(algoliaConfig)
-    /* const headers = getHeaders(algoliaConfig) */  /* headers aus helpers modulkomponente einfügen */
-/* Ausgelagert in helpers.js */
-    /* const headers = {} */
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
-        app.use("/api/user", userRouter(apis))  /* Statt headers, apis */  /* Weil getUserRoute in user.js verschoben, zu userRouter(headers) mit headers parameter verknüpft */
+        app.use(bodyParser.urlencoded())  /* Es analysiert POST Daten */  /* bodyParser "veraltet", aber eigentlich nur der darin enthaltene "constructor" */
+        app.use("/api/user", userRouter(apis))
     })
-
 }

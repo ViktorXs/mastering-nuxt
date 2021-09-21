@@ -27,6 +27,13 @@ export default {
         '@nuxtjs/tailwindcss',
     ],
     
+    serverMiddleware: [
+        function(req, res, next) {
+            console.log(req.body)
+            next()
+        }
+    ],
+
     css: [ "~/assets/sass/app.scss" ],
 
     build: { 

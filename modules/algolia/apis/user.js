@@ -4,15 +4,14 @@ import { unWrap, getErrorResponse } from "../../../utils/fetchUtils"
 
 export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig)
-    /* Daten an Algolia senden, um einen User in der DB zu erzeugen */
 
     return {
-        create: async (identity, payload) => {  /* Daten an Algolia senden um user zu erzeugen */
+        create: async (identity, payload) => {
             try{
                 return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/users/${identity.id}`, { 
                     headers,
                     method: "PUT",
-                    body: JSON.stringify(payload)  /* makeUserPayload(identity) ersetzen mit parameter payload */
+                    body: JSON.stringify(payload)
                 }))
             } catch(error) {
                 return getErrorResponse(error)
