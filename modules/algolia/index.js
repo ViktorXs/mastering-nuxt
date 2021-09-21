@@ -7,7 +7,7 @@ export default function() {
     const apis = getApis(algoliaConfig)
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
-        app.use(bodyParser.urlencoded())  /* Es analysiert POST Daten */  /* bodyParser "veraltet", aber eigentlich nur der darin enthaltene "constructor" */
+        app.use(bodyParser.urlencoded())
         app.use("/api/user", userRouter(apis))
     })
 }
