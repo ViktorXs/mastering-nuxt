@@ -1,6 +1,9 @@
 <template>
 <div>
-    <p>Admin Page</p>
+    <h1 class="text-2xl font-bold">Admin Page</h1>
+    <div class="bg-gray-200 p-2">
+        <nuxt-link to="/admin/homes">Homes</nuxt-link>
+    </div>
     <nuxt-child />
 </div>
 </template>

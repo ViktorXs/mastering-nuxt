@@ -2,7 +2,7 @@
 <div>
     PLACEHOLDER - List of homes here!
     <h2 class="text-xl bold">Add a Home</h2>
-    <form class="form">
+    <form class="form" @submit.prevent="onSubmit">
         Images:<br />
         <input v-model="home.images[0]" type="text" class="w-3/4" /><br />
         <input v-model="home.images[1]" type="text" class="w-3/4" /><br />
@@ -71,6 +71,17 @@ export default {
                 ],
             },
         }
+    },
+    methods: {
+        async onSubmit() {  /* async, weil über API */
+            await fetch("/api/homes", {
+                method: "POST",  /* Daten senden */
+                body: JSON.stringify(this.home),  /* Eingetragene Werte aus data/return/home in JSON-Freundliches Format umwandeln */
+                headers: {  /* Formulare mit Java Script, aber als JSON versendet. Deshalb Type auf json definieren.  */
+                    "Content-Type": "application/json"
+                }
+            })
+        },
     },
 }
 </script>
