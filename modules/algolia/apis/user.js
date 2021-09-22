@@ -27,6 +27,5 @@ export default (algoliaConfig) => {
                 return getErrorResponse(error)
             }
         }
-        
     }
 }
