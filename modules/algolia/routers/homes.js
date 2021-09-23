@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
-import { rejectHitBadRequest, hasBadBody, sendJSON } from "../helpers" 
+import { rejectHitBadRequest, hasBadBody, sendJSON } from "../helpers"  /* sendJSON kann später benötigt werden */
+
 export default (apis) => {
     return async (req, res) => {
         if(req.method === "POST") {  /* Prüfen, ob POST... */
@@ -21,6 +22,7 @@ export default (apis) => {
             userId: identity.id,  /* Ein "Nice to have" */
         }
         const resp = await apis.homes.create(homeId, payload)
+        
         if(!resp.ok) {  /* Wenn Response nicht ok */
             resp.statusCode = 500
             resp.send()
