@@ -19,7 +19,7 @@ export default {
 
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", "~/plugins/auth.client", ],
 
-    modules: [ "~/modules/auth", "~/modules/algolia", ],
+    modules: [ "~/modules/auth", "~/modules/algolia", "~/modules/cloudinary", ],
 
     buildModules: [
         '@nuxtjs/eslint-module',
@@ -39,7 +39,7 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientId: "404691488375-r4s7l03kve4am6bvmqf798ilveh8a5cm.apps.googleusercontent.com",  /* Täglich regeneriert */
+            clientId: "",  /* Key vor commit entfernen! */
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
@@ -50,7 +50,10 @@ export default {
     privateRuntimeConfig: {
         algolia: {
             appId: "9P5ZZJ0U0N",
-            apiKey: "64fb3f433561053679b5ed2622891277",  /* Täglich regeneriert */
+            apiKey: "",  /* Key vor commit entfernen! */
         },
-    },    
+        cloudinary: {
+            apiSecret: "",  /* Key vor commit entfernen! */
+        },
+    },
 }

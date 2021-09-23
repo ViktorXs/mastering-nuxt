@@ -79,7 +79,7 @@ export default {
     },
 
     methods: {
-        changed(event) {
+        changed(event) {  /* Mit listener @changed Adressdetails speichern */
             const addressParts = event.detail.address_components
             
             const streetNumber = this.getAddressPart(addressParts, "street_number")?.short_name || ""  /* short_name kürzt, wenn möglich */ /* nach dem "type" mit getAddressPart suchen und speichern */
