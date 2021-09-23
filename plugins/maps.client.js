@@ -28,15 +28,12 @@ export default function(context, inject) {
         waiting = []
     }
 
-    function doAutoComplete(input) {
+    function doAutoComplete(input, types = ["(cities)"]) {  /* Nur nach Städten filtern */
         if(!isLoaded) {
             waiting.push({ fn: doAutoComplete, arguments })
             return
         }
-        const options = {
-            types: ["(cities)"]
-        }
-        const autoComplete = new window.google.maps.places.Autocomplete(input, options)
+        const autoComplete = new window.google.maps.places.Autocomplete(input, { types })  /* Alle Typen akzeptieren */
         autoComplete.addListener("place_changed", () => {
             const place = autoComplete.getPlace()
             input.dispatchEvent(new CustomEvent("changed", { detail: place }))

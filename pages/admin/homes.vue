@@ -28,6 +28,7 @@
         <input v-model="home.bedrooms" type="number" class="w-14" />
         <input v-model="home.beds" type="number" class="w-14" />
         <input v-model="home.bathrooms" type="number" class="w-14" /><br />
+        <input ref="locationSelector" type="text" placeholder="Enter location here" autocomplete="off" @changed="changed" /><br />  <!-- google places autocomplete off -->
         Address: <input v-model="home.location.address" type="text" class="w-60" /><br />
         City: <input v-model="home.location.city" type="text" class="w-26" /><br />
         State: <input v-model="home.location.state" type="text" class="w-26" /><br />
@@ -52,15 +53,15 @@ export default {
                 bathrooms: "",
                 features: ["", "", "", "", ""],
                 location: {
-                    address: "",
-                    citiy: "",
+                    address: "",  /* Hausnummer und Straße (Amerikanisch) */
+                    city: "",
                     state: "",
                     postalCode: "",
                     country: "",
                 },
                 _geoloc: {
-                    lat: 69.42,
-                    lng: 69.42,
+                    lat: "",
+                    lng: "",
                 },
                 images: [
                     "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
@@ -72,7 +73,33 @@ export default {
             },
         }
     },
+
+    mounted() {
+        this.$maps.doAutoComplete(this.$refs.locationSelector, ["address"])
+    },
+
     methods: {
+        changed(event) {
+            const addressParts = event.detail.address_components
+            
+            const streetNumber = this.getAddressPart(addressParts, "street_number")?.short_name || ""  /* short_name kürzt, wenn möglich */ /* nach dem "type" mit getAddressPart suchen und speichern */
+            const route = this.getAddressPart(addressParts, "route")?.short_name || ""  /* Straßenname */
+            this.home.location.address = streetNumber + " " + route  /* Nummer und Straße zusammensetzen */
+
+            this.home.location.city = this.getAddressPart(addressParts, "locality")?.short_name || ""
+            this.home.location.state = this.getAddressPart(addressParts, "administrative_area_level_1")?.long_name || ""
+            this.home.location.country = this.getAddressPart(addressParts, "country")?.short_name || ""
+            this.home.location.postalCode = this.getAddressPart(addressParts, "postal_code")?.short_name || ""
+
+            const geo = event.detail.geometry.location
+            this.home._geoloc.lat = geo.lat()
+            this.home._geoloc.lng = geo.lng()
+        },
+
+        getAddressPart(parts, type) {  /* Addresskomponente aus addressPart zurückgeben */
+            return parts.find((part) => part.types.includes(type))
+        },
+
         async onSubmit() {  /* async, weil über API */
             await fetch("/api/homes", {
                 method: "POST",  /* Daten senden */
