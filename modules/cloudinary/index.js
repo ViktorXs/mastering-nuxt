@@ -13,13 +13,13 @@ export default function() {
             const sha1 = createHash("sha1")  /* SHA-1 Hash mit der node crypto library erzeugen */
             const payload = []  /* store & sort the parameters, recieved from the req body. cloudinary */
 
-            Object.keys(req.body).forEach(key => {
-                payload.push(`${key}=${req.body[key]}`)
+            Object.keys(req.body).forEach(key => {  /* Cloudinary benötigt eine url-like enkodierung, getrennt mit &-Zeichen. */
+                payload.push(`${key}=${req.body[key]}`)  /* -> "key=value&key=value&key=value&..." usw. */
             })
 
             sha1.update(payload.sort().join("&") + config.apiSecret)
             res.end(JSON.stringify({
-                signature: sha1.digest("hex")  /* digest = Zusammenfassen. hex = Signatur in hexadezimal erstellen */
+                signature: sha1.digest("hex")  /* digest = Zusammenfassen. hex = Signatur in hexadezimal enkodieren */
             }))
         } catch(error) {
             return error(error)

@@ -19,13 +19,17 @@ export default {
 
     plugins: [ "~/plugins/maps.client", "~/plugins/dataApi", "~/plugins/auth.client", ],
 
-    modules: [ "~/modules/auth", "~/modules/algolia", "~/modules/cloudinary", ],
+    modules: [ "~/modules/auth", "~/modules/algolia", "~/modules/cloudinary", "@nuxtjs/cloudinary", ],
 
     buildModules: [
         '@nuxtjs/eslint-module',
         '@nuxtjs/vuetify',
         '@nuxtjs/tailwindcss',
     ],
+
+    cloudinary: {
+        cloudName: "viktorxs",
+    },
 
     css: [ "~/assets/sass/app.scss" ],
 
@@ -39,21 +43,24 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientId: "",  /* Key vor commit entfernen! */
+            clientId: "",  /* Nicht committen! */
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
             apiKey: "b59bf0690de2a7650fe53e9d49e01eb2",
         },
+        cloudinary: {
+            apiKey: "",  /* Nicht committen! */
+        },
     },
 
     privateRuntimeConfig: {
-        algolia: {
+        algolia: {  /* Algolia rechte für Lese- / Schreibrechte über das auth.js Modul mit identity */
             appId: "9P5ZZJ0U0N",
-            apiKey: "",  /* Key vor commit entfernen! */
+            apiKey: "",  /* Nicht committen! */
         },
         cloudinary: {
-            apiSecret: "",  /* Key vor commit entfernen! */
+            apiSecret: "",  /* Nicht committen! */
         },
     },
 }

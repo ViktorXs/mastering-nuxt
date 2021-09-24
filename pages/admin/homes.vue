@@ -3,6 +3,8 @@
     PLACEHOLDER - List of homes here!
     <h2 class="text-xl bold">Add a Home</h2>
     <form class="form" @submit.prevent="onSubmit">
+        Upload Image:
+        <ImageUploader />
         Images:<br />
         <input v-model="home.images[0]" type="text" class="w-3/4" /><br />
         <input v-model="home.images[1]" type="text" class="w-3/4" /><br />
