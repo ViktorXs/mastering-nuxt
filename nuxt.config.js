@@ -47,7 +47,7 @@ export default {
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
-            apiKey: "",
+            apiKey: "b59bf0690de2a7650fe53e9d49e01eb2",
         },
         cloudinary: {
             apiKey: "",  /* Nicht committen! */

@@ -43,7 +43,7 @@ export default {
                 apiKey: this.$config.cloudinary.apiKey,
                 signature,
             })
-            console.log(asset)
+            this.$emit('file-uploaded', asset.secure_url)  /* Wenn hochgeladen event mit secure_url emitten, damit es z.B. aus einer Component gefetcht wird. */
         },
     },
 }

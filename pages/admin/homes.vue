@@ -3,14 +3,12 @@
     PLACEHOLDER - List of homes here!
     <h2 class="text-xl bold">Add a Home</h2>
     <form class="form" @submit.prevent="onSubmit">
-        Upload Image:
-        <ImageUploader />
-        Images:<br />
-        <input v-model="home.images[0]" type="text" class="w-3/4" /><br />
-        <input v-model="home.images[1]" type="text" class="w-3/4" /><br />
-        <input v-model="home.images[2]" type="text" class="w-3/4" /><br />
-        <input v-model="home.images[3]" type="text" class="w-3/4" /><br />
-        <input v-model="home.images[4]" type="text" class="w-3/4" /><br />
+        Upload Images:
+        <ImageUploader @file-uploaded="imageUpdated($event, 0)" />  <!-- auf Event listen, wenn file-uploaded aus der imageUploader Komponente emitted -->
+        <ImageUploader @file-uploaded="imageUpdated($event, 1)" />  <!-- mit ($event, NUM) vorgeben, welches Bild ersetzt werden soll -->
+        <ImageUploader @file-uploaded="imageUpdated($event, 2)" />
+        <ImageUploader @file-uploaded="imageUpdated($event, 3)" />
+        <ImageUploader @file-uploaded="imageUpdated($event, 4)" />
         Title:<br />
         <input v-model="home.title" type="text" class="w-60" /><br />
         Description<br />
@@ -55,7 +53,7 @@ export default {
                 bathrooms: "",
                 features: ["", "", "", "", ""],
                 location: {
-                    address: "",  /* Hausnummer und Straße (Amerikanisch) */
+                    address: "",
                     city: "",
                     state: "",
                     postalCode: "",
@@ -65,13 +63,7 @@ export default {
                     lat: "",
                     lng: "",
                 },
-                images: [
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=81",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=82",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=83",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=84",
-                ],
+                images: [],
             },
         }
     },
@@ -81,6 +73,10 @@ export default {
     },
 
     methods: {
+        imageUpdated(imageUrl, index) {
+            this.home.images[index] = imageUrl
+        },
+
         changed(event) {  /* Mit listener @changed Adressdetails speichern */
             const addressParts = event.detail.address_components
             
