@@ -28,6 +28,7 @@ export default (apis) => {
             resp.send()
             return
         }
+        await apis.user.assignHome(identity, homeId)  /* für createHome Funktion assignHome aus user.js api aus algolia modul durchgeben */
         sendJSON({}, res)  /* für spätere Notwendigkeit vorbereitet */
     }
 }
