@@ -3,6 +3,10 @@ import { rejectHitBadRequest, hasBadBody, sendJSON } from "../helpers"  /* sendJ
 
 export default (apis) => {
     return async (req, res) => {
+        if(req.method === "GET" && req.url === "/user/") {  /* "just check, if that's the URL, that is being requested" */
+            return await getHomesByUser(req.identity.id, res)  /* Wenn ja, dann Funktion getHomesByUser ausgeben */
+        }
+
         if(req.method === "POST") {  /* Prüfen, ob POST... */
            if(hasBadBody(req)) {  /* ... oder keinen body... */
                return rejectHitBadRequest(res)  /* ... dann status 400 bad request */
@@ -11,6 +15,11 @@ export default (apis) => {
            return
         }
         rejectHitBadRequest(res)
+    }
+
+    async function getHomesByUser(userId, res) {
+        const payload = (await apis.homes.getByUserId(userId)).json.hits  /* mit hits (In einem Array aufgeteilt) jede Unterkunft dem User in payload speichern. */
+        sendJSON(payload, res)  /* Mit sendJSON die payload senden  */
     }
 
     async function createHome(identity, body, res) {  /* home mit dem payload erstellen */

@@ -1,6 +1,8 @@
 <template>
 <div>
-    PLACEHOLDER - List of homes here!
+    <span v-for="home in homesList" :key="home.objectID">{{ home.title }}:
+        <button class="text-red-800">Delete Home</button><br />
+    </span>
     <h2 class="text-xl bold">Add a Home</h2>
     <form class="form" @submit.prevent="onSubmit">
         Upload Images:
@@ -39,9 +41,12 @@
 </div>
 </template>
 <script>
+import { unWrap } from "~/utils/fetchUtils"
+
 export default {
     data() {
         return {
+            homesList: [],
             home: {  /* im selben Format, wie die Datenbank in Algolia */
                 title: "",
                 description: "",
@@ -70,9 +75,14 @@ export default {
 
     mounted() {
         this.$maps.doAutoComplete(this.$refs.locationSelector, ["address"])
+        this.setHomesList()
     },
 
     methods: {
+        async setHomesList() {
+            this.homesList = (await unWrap(await fetch("/api/homes/user/"))).json
+        },
+
         imageUpdated(imageUrl, index) {
             this.home.images[index] = imageUrl
         },
