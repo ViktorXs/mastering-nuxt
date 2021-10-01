@@ -80,7 +80,7 @@ export default {
 
     methods: {
         async deleteHome(homeId) {  /* Löschfunktion, um URL zu löschen  */
-            await fetch(`apis/homes/${homeId}`, {
+            await fetch(`/api/homes/${homeId}`, {
                 method: "DELETE"
             })
             const index = this.homesList.findIndex(obj => obj.objectID === homeId)  /* index des homes finden zum Löschen */
@@ -116,13 +116,17 @@ export default {
             return parts.find((part) => part.types.includes(type))
         },
 
-        async onSubmit() {  /* async, weil über API */
-            await fetch("/api/homes", {
+        async onSubmit() {  /* async, weil über API */ 
+            const response = await unWrap(await fetch("/api/homes", {  /* Aus Lösch-Lektion angepasst zu einer Konstante mit unWrap, um neu erzeugte homes in die homesList zu speichern */
                 method: "POST",  /* Daten senden */
                 body: JSON.stringify(this.home),  /* Eingetragene Werte aus data/return/home in JSON-Freundliches Format umwandeln */
                 headers: {  /* Formulare mit Java Script, aber als JSON versendet. Deshalb Type auf json definieren.  */
                     "Content-Type": "application/json"
                 }
+            }))
+            this.homesList.push({  /* Home in HomesListe einfügen  */
+                title: this.home.title,
+                objectID: response.json.homeId
             })
         },
     },
