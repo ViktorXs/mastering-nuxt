@@ -6,19 +6,17 @@ export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig)
 
     return {
-        async assignHome(identity, homeId) {  /* UserId mit HomeId verbinden */
-            const payload = (await this.getById(identity)).json  /* identity aus Algolia als json an payload übergeben */
-            payload.homeId.push(homeId)  /* Home Id in das Home array in die payload durchgeben */
-            
-            /* PUT aus create nutzen. Fügt nur etwas ein, was noch nicht existiert, bzw aktualisiert etwas, wenn es existiert */
-            this.create(identity, payload)  /* Mit create eigentlich nur updaten */
+        async assignHome(identity, homeId) {
+            const payload = (await this.getById(identity)).json
+            payload.homeId.push(homeId)
+            this.create(identity, payload)
         },
 
         async removeHome(identity, homeId) {
-            const payload = (await this.getById(identity)).json  /* Zur Löschung dieselbe Daten durch die homeId erhalten */
-            const homes = payload.homeId.filter(id => id !== homeId)  /* homeId aus home filtern */
-            payload.homeId = homes  /* von homeId gefilterten Inhalt in payload laden */
-            this.create(identity, payload)  /* updaten */
+            const payload = (await this.getById(identity)).json
+            const homes = payload.homeId.filter(id => id !== homeId)
+            payload.homeId = homes
+            this.create(identity, payload)
         },
 
         create: async (identity, payload) => {

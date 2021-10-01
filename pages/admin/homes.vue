@@ -1,13 +1,13 @@
 <template>
 <div>
     <span v-for="home in homesList" :key="home.objectID">{{ home.title }}:
-        <button class="text-red-800" @click="deleteHome(home.objectID)">Delete Home</button><br />  <!-- deleteHome Funktion zum Löschen der Unterkunft -->
+        <button class="text-red-800" @click="deleteHome(home.objectID)">Delete Home</button><br />
     </span>
     <h2 class="text-xl bold">Add a Home</h2>
     <form class="form" @submit.prevent="onSubmit">
         Upload Images:
-        <ImageUploader @file-uploaded="imageUpdated($event, 0)" />  <!-- auf Event listen, wenn file-uploaded aus der imageUploader Komponente emitted -->
-        <ImageUploader @file-uploaded="imageUpdated($event, 1)" />  <!-- mit ($event, NUM) vorgeben, welches Bild ersetzt werden soll -->
+        <ImageUploader @file-uploaded="imageUpdated($event, 0)" />
+        <ImageUploader @file-uploaded="imageUpdated($event, 1)" />
         <ImageUploader @file-uploaded="imageUpdated($event, 2)" />
         <ImageUploader @file-uploaded="imageUpdated($event, 3)" />
         <ImageUploader @file-uploaded="imageUpdated($event, 4)" />
@@ -30,7 +30,7 @@
         <input v-model="home.bedrooms" type="number" class="w-14" />
         <input v-model="home.beds" type="number" class="w-14" />
         <input v-model="home.bathrooms" type="number" class="w-14" /><br />
-        <input ref="locationSelector" type="text" placeholder="Enter location here" autocomplete="off" @changed="changed" /><br />  <!-- google places autocomplete off -->
+        <input ref="locationSelector" type="text" placeholder="Enter location here" autocomplete="off" @changed="changed" /><br />
         Address: <input v-model="home.location.address" type="text" class="w-60" /><br />
         City: <input v-model="home.location.city" type="text" class="w-26" /><br />
         State: <input v-model="home.location.state" type="text" class="w-26" /><br />
@@ -79,12 +79,12 @@ export default {
     },
 
     methods: {
-        async deleteHome(homeId) {  /* Löschfunktion, um URL zu löschen  */
+        async deleteHome(homeId) {
             await fetch(`/api/homes/${homeId}`, {
                 method: "DELETE"
             })
-            const index = this.homesList.findIndex(obj => obj.objectID === homeId)  /* index des homes finden zum Löschen */
-            this.homesList.splice(index, 1)  /* diesen Eintrag aus homesList löschen */
+            const index = this.homesList.findIndex(obj => obj.objectID === homeId)
+            this.homeList.splice(index, 1)
         },
 
         async setHomesList() {
@@ -95,12 +95,12 @@ export default {
             this.home.images[index] = imageUrl
         },
 
-        changed(event) {  /* Mit listener @changed Adressdetails speichern */
+        changed(event) {
             const addressParts = event.detail.address_components
             
-            const streetNumber = this.getAddressPart(addressParts, "street_number")?.short_name || ""  /* short_name kürzt, wenn möglich */ /* nach dem "type" mit getAddressPart suchen und speichern */
-            const route = this.getAddressPart(addressParts, "route")?.short_name || ""  /* Straßenname */
-            this.home.location.address = streetNumber + " " + route  /* Nummer und Straße zusammensetzen */
+            const streetNumber = this.getAddressPart(addressParts, "street_number")?.short_name || ""
+            const route = this.getAddressPart(addressParts, "route")?.short_name || ""
+            this.home.location.address = streetNumber + " " + route
 
             this.home.location.city = this.getAddressPart(addressParts, "locality")?.short_name || ""
             this.home.location.state = this.getAddressPart(addressParts, "administrative_area_level_1")?.long_name || ""
@@ -112,19 +112,19 @@ export default {
             this.home._geoloc.lng = geo.lng()
         },
 
-        getAddressPart(parts, type) {  /* Addresskomponente aus addressPart zurückgeben */
+        getAddressPart(parts, type) {
             return parts.find((part) => part.types.includes(type))
         },
 
-        async onSubmit() {  /* async, weil über API */ 
-            const response = await unWrap(await fetch("/api/homes", {  /* Aus Lösch-Lektion angepasst zu einer Konstante mit unWrap, um neu erzeugte homes in die homesList zu speichern */
-                method: "POST",  /* Daten senden */
-                body: JSON.stringify(this.home),  /* Eingetragene Werte aus data/return/home in JSON-Freundliches Format umwandeln */
-                headers: {  /* Formulare mit Java Script, aber als JSON versendet. Deshalb Type auf json definieren.  */
+        async onSubmit() {
+            const response = await unWrap(await fetch("/api/homes", {
+                method: "POST",
+                body: JSON.stringify(this.home),
+                headers: {
                     "Content-Type": "application/json"
                 }
             }))
-            this.homesList.push({  /* Home in HomesListe einfügen  */
+            this.homesList.push({
                 title: this.home.title,
                 objectID: response.json.homeId
             })

@@ -25,7 +25,14 @@ export default {
         '@nuxtjs/eslint-module',
         '@nuxtjs/vuetify',
         '@nuxtjs/tailwindcss',
+        '@nuxt/image'
     ],
+
+    image: {
+        cloudinary: {
+            baseURL: "https://res.cloudinary.com/viktorxs/image/upload/"
+        }
+    },
 
     cloudinary: {
         cloudName: "viktorxs",

@@ -6,7 +6,7 @@ export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig)
 
     return {
-        create: async (homeId, payload) => {  /* Daten an Algolia senden um home zu erzeugen */
+        create: async (homeId, payload) => {
             try{
                 return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
                     headers,
@@ -18,7 +18,7 @@ export default (algoliaConfig) => {
             }
         },
 
-        delete: async (homeId, payload) => {  /* Löschen request an Algolia senden */
+        delete: async (homeId, payload) => {
             try{
                 return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
                     headers,
@@ -29,18 +29,18 @@ export default (algoliaConfig) => {
             }
         },
 
-        getByUserId: async (userId) => {  /* userId aus der homes Tabelle */
+        getByUserId: async (userId) => {
             try{
-                return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/query`, {  /* mit query die ganze homes Tabelle */
+                return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/query`, {
                     headers,
                     method: "POST",
                     body: JSON.stringify({
-                        filters: `userId:${userId}`,  /* nach dem Facet userId filtern, wie in Algolia konfiguriert */
-                        attributesToRetrieve: [  /* Nur notwendige Daten in einem Array erhalten, statt alle Daten. Ist schneller. */
+                        filters: `userId:${userId}`,
+                        attributesToRetrieve: [
                             "objectID",
                             "title",
                         ],
-                        attributesToHighlight: [],  /* "We also don't net syntax-highlighting in our results." */
+                        attributesToHighlight: [],
                     }),
                 }))
             } catch(error) {
