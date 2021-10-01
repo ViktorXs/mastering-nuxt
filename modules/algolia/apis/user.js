@@ -14,6 +14,13 @@ export default (algoliaConfig) => {
             this.create(identity, payload)  /* Mit create eigentlich nur updaten */
         },
 
+        async removeHome(identity, homeId) {
+            const payload = (await this.getById(identity)).json  /* Zur Löschung dieselbe Daten durch die homeId erhalten */
+            const homes = payload.homeId.filter(id => id !== homeId)  /* homeId aus home filtern */
+            payload.homeId = homes  /* von homeId gefilterten Inhalt in payload laden */
+            this.create(identity, payload)  /* updaten */
+        },
+
         create: async (identity, payload) => {
             try{
                 return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/users/${identity.id}`, { 

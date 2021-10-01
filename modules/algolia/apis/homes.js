@@ -18,6 +18,17 @@ export default (algoliaConfig) => {
             }
         },
 
+        delete: async (homeId, payload) => {  /* Löschen request an Algolia senden */
+            try{
+                return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
+                    headers,
+                    method: "DELETE",
+                }))
+            } catch(error) {
+                return getErrorResponse(error)
+            }
+        },
+
         getByUserId: async (userId) => {  /* userId aus der homes Tabelle */
             try{
                 return unWrap(await fetch(`https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/query`, {  /* mit query die ganze homes Tabelle */

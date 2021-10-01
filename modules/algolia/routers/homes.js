@@ -3,6 +3,11 @@ import { rejectHitBadRequest, hasBadBody, sendJSON } from "../helpers"  /* sendJ
 
 export default (apis) => {
     return async (req, res) => {
+        if(req.method === "DELETE") {  /* returnen, wenn request DELETE ist */
+            const homeId = req.url.replace(/\//g, "")  /* URL und Slashes daraus mit leerem String ersetzen */
+            return await deleteHome(req.identity, homeId, res)
+        }
+
         if(req.method === "GET" && req.url === "/user/") {  /* "just check, if that's the URL, that is being requested" */
             return await getHomesByUser(req.identity.id, res)  /* Wenn ja, dann Funktion getHomesByUser ausgeben */
         }
@@ -15,6 +20,14 @@ export default (apis) => {
            return
         }
         rejectHitBadRequest(res)
+    }
+
+    async function deleteHome(identity, homeId, res) {
+        await Promise.all([  /* Home vom Home index und user index entfernen */
+            apis.homes.delete(homeId),
+            apis.user.removeHome(identity, homeId)
+        ])
+        sendJSON({}, res)
     }
 
     async function getHomesByUser(userId, res) {
@@ -34,10 +47,10 @@ export default (apis) => {
         
         if(!resp.ok) {  /* Wenn Response nicht ok */
             resp.statusCode = 500
-            resp.send()
+            resp.end()
             return
         }
         await apis.user.assignHome(identity, homeId)  /* für createHome Funktion assignHome aus user.js api aus algolia modul durchgeben */
-        sendJSON({}, res)  /* für spätere Notwendigkeit vorbereitet */
+        sendJSON({ homeId }, res)  /* returnen, wenn etwas gelöscht oder verändert wurde */
     }
 }

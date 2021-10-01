@@ -1,7 +1,7 @@
 <template>
 <div>
     <span v-for="home in homesList" :key="home.objectID">{{ home.title }}:
-        <button class="text-red-800">Delete Home</button><br />
+        <button class="text-red-800" @click="deleteHome(home.objectID)">Delete Home</button><br />  <!-- deleteHome Funktion zum Löschen der Unterkunft -->
     </span>
     <h2 class="text-xl bold">Add a Home</h2>
     <form class="form" @submit.prevent="onSubmit">
@@ -79,6 +79,14 @@ export default {
     },
 
     methods: {
+        async deleteHome(homeId) {  /* Löschfunktion, um URL zu löschen  */
+            await fetch(`apis/homes/${homeId}`, {
+                method: "DELETE"
+            })
+            const index = this.homesList.findIndex(obj => obj.objectID === homeId)  /* index des homes finden zum Löschen */
+            this.homesList.splice(index, 1)  /* diesen Eintrag aus homesList löschen */
+        },
+
         async setHomesList() {
             this.homesList = (await unWrap(await fetch("/api/homes/user/"))).json
         },
