@@ -42,7 +42,7 @@ export default {
                 apiKey: this.$config.cloudinary.apiKey,
                 signature,
             })
-            this.$emit('file-uploaded', asset.public_id)  /* Statt secure_url, die öffentliche ID ausgeben um daraus dynamische URL's zu generieren */
+            this.$emit('file-uploaded', asset.public_id)
         },
     },
 }

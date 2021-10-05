@@ -1,12 +1,12 @@
 <template>
 <div>
-    <img :src="home.images[0]" style="width:200px"><br>
+    <nuxt-img provider="cloudinary" :src="home.images[0]" width="200px" height="150" /><br>  <!-- Bilder per nuxt-img methode verwenden -->
     <h3>{{ home.title }}</h3>
-    {{ home.location.address }}<br>
+    <p>{{ home.location.address }}<br>
     {{ home.location.city }}<br>
-    {{ home.location.state }}, {{ home.location.country }}<br>
-    {{ toPlural(home.guests, "guest") }}<br>
-    {{ home.pricePerNight }} $ per night
+    {{ home.location.state }}, {{ home.location.country }}</p>
+    <p>{{ toPlural(home.guests, "guest") }}</p>
+    <p>{{ home.pricePerNight }} $ per night</p>
 </div>
 </template>
 

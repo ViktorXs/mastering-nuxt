@@ -16,7 +16,7 @@ export default {
         },
     },
     methods: {
-        getImageUrl(publicId) {  /* Url aus dem Bild generieren  */
+        getImageUrl(publicId) {
             return this.$img(publicId, {
                 width: 600,
             }, {
