@@ -1,6 +1,5 @@
 <template>
 <div>
-    <!-- <div class="app-house-header" :style="`background-image: url(${home.images[0]})`"></div> -->
     <nuxt-img 
         class="app-house-header" 
         provider="cloudinary" 
