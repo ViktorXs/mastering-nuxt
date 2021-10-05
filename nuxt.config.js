@@ -50,24 +50,24 @@ export default {
     publicRuntimeConfig: {
         auth: {
             cookieName: "idToken",
-            clientId: "404691488375-6sedk14sb296q52r4htfke75cqh0epc7.apps.googleusercontent.com",  /* Nicht committen! */
+            clientId: "",  /* Nicht committen! */
         },
         algolia: {
             appId: "9P5ZZJ0U0N",
             apiKey: "b59bf0690de2a7650fe53e9d49e01eb2",
         },
         cloudinary: {
-            apiKey: "368364928198892",  /* Nicht committen! */
+            apiKey: "",  /* Nicht committen! */
         },
     },
 
     privateRuntimeConfig: {
         algolia: {  /* Algolia rechte für Lese- / Schreibrechte über das auth.js Modul mit identity */
             appId: "9P5ZZJ0U0N",
-            apiKey: "192fd881ff7f307fab89e0aea4dbb7ca",  /* Nicht committen! */
+            apiKey: "",  /* Nicht committen! */
         },
         cloudinary: {
-            apiSecret: "VE9nUd7gGKKemKkFl25bkqEpZfo",  /* Nicht committen! */
+            apiSecret: "",  /* Nicht committen! */
         },
     },
 }

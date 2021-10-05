@@ -6,9 +6,7 @@
         width="360" 
         height="200" 
         :src="home.images[0]" 
-        :modifiers="{ effect: 'grayscale', opacity: '50' }"
-    />
-    <div class="app-house-body">
+    />  <!-- rausgenommen -> :modifiers="{ effect: 'grayscale', opacity: '50' }" -->
         <img src="/images/icons/heart.svg" class="app-fav"/>
         <h2 class="app-title">{{ home.title }}</h2>
         <div class="app-address">
